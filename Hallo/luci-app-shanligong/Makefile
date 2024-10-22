@@ -15,5 +15,5 @@ PKG_RELEASE:=4
 define Package/luci-app-school/install
 	chmod +x $(1)/etc/init/*
 endef
-include $(TOPDIR)/feeds/luci/luci.mk
+
 $(eval $(call BuildPackage,luci-app-shanligong))
