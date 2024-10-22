@@ -8,7 +8,7 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/luci-app-nettask
+define Package/luci-app-shanligong
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
