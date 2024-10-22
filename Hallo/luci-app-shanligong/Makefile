@@ -7,7 +7,7 @@ PKG_VERSION:=2.5.0
 PKG_RELEASE:=4
 PKG_NAME:=luci-app-shanligong
 
-define Package/luci-app-shanligong/install
+define Package/luci-app-shanligong/postinst
 	chmod +x $(1)/etc/init/*
 endef
 
