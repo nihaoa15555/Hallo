@@ -6,6 +6,9 @@ LUCI_PKGARCH:=all
 
 PKG_NAME:=luci-app-school
 
+define Package/luci-app-school/postinst
+	chmod +x $(1)/etc/init/*
+endef
 include $(TOPDIR)/feeds/luci/luci.mk
 
-# call BuildPackage - OpenWrt buildroot signature
+$(eval $(call BuildPackage,luci-app-school))
