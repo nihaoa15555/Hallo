@@ -10,5 +10,5 @@ function index()
     pack.i18n = "school"
     pack.dependent = true
 
-    entry({"admin", "services", "school", "set"}, cbi("school/school"), _("Basic Setting"), 1).leaf = true
+    entry({"admin", "services", "school", "set"}, cbi("school/school"), _("基础设置"), 1).leaf = true
 end
