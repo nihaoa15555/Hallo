@@ -6,7 +6,7 @@ function index()
 	end
 
     local pack
-    pack = entry({"admin", "services", "school"}, alias("admin", "services", "school", "set"), _("school"), 30)
+    pack = entry({"admin", "services", "school"}, alias("admin", "services", "school", "set"), _("IPID设置"), 30)
     pack.i18n = "school"
     pack.dependent = true
 
