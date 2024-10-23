@@ -9,6 +9,12 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=shanligong web for luci
 LUCI_DEPENDS:=
 LUCI_PKGARCH:=all
+PKG_NAME:=luci-app-shanligong
+
+define Package/luci-app-shanligong/install
+	chmod +x $(1)/etc/init/*
+endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
-# call BuildPackage - OpenWrt buildroot signature
+
+$(eval $(call BuildPackage,luci-app-shanligong))
