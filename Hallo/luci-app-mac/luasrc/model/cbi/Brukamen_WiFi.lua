@@ -6,6 +6,12 @@ s.anonymous = true
 o = s:option(Value, "ssid", "Wi-Fi名称")
 o.placeholder = "我的网络"
 
+o = s:option(ListValue, "disabled", "无线开关")
+o:value("0", "启用")
+o:value("1", "禁用")
+o.default = "0"
+
+
 o = s:option(ListValue, "encryption", "加密类型")
 o:value("psk", "WPA/WPA2-PSK")
 o:value("none", "无线不加密")
@@ -24,3 +30,4 @@ o.validate = function(self, value)
 end
 
 return m
+
