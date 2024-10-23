@@ -1,6 +1,0 @@
-config brukamen_mac 'config'
-	option interface ''
-	option enable '0'
-	option random '0'
-	option version ''
-
