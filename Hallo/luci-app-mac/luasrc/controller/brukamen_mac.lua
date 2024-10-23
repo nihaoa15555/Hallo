@@ -1,11 +1,13 @@
 module("luci.controller.brukamen_mac", package.seeall)
 
 function index()
-    entry({"admin", "services", "brukamen_mac"}, cbi("brukamen_mac"), _("MAC克隆"), 90)
-    --entry({"admin", "services", "ua2f"}, cbi("ua2f"), "防检测配置", 92)
-    entry({"admin", "services", "Brukamen_WiFi"}, cbi("Brukamen_WiFi"), "WIFI设置", 93)
-    --entry({"admin", "services", "webauto"}, alias("admin", "services", "webauto", "settings"), _("Web认证"), 99).index = true
-    --entry({"admin", "services", "webauto", "settings"}, cbi("autoshell"), _("认证设置"), 1)
-    --entry({"admin", "services", "webauto", "log"}, cbi("autoshell_log"), _("认证日志"), 2)
-    entry({"admin", "services", "autoreboot"}, cbi("autoreboot"), _("定时重启"), 100)
+    entry({"admin", "service"}, alias("admin", "service", "htm"), _("校园网"),1)
+    entry({"admin", "service", "htm"}, cbi("mlgb"), _("总览"), 1)
+    entry({"admin", "service", "brukamen_mac"}, cbi("brukamen_mac"), _("MAC克隆"), 3)
+    --entry({"admin", "service", "ua2f"}, cbi("ua2f"), "防检测配置", 4)
+    entry({"admin", "service", "Brukamen_WiFi"}, cbi("Brukamen_WiFi"), "WIFI设置", 2)
+    entry({"admin", "service", "lanipc"}, cbi("lanip"), _("修改IP"), 5)
+    entry({"admin", "service", "autoreboot"}, cbi("autoreboot"), _("定时重启"), 100)
+    --entry({"admin", "service", "CQR"}, cbi("donation"), _("支持我们"), 101)
 end
+
