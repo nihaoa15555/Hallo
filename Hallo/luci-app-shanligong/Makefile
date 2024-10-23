@@ -6,11 +6,10 @@ PKG_VERSION:=2.5.0
 PKG_RELEASE:=4
 PKG_NAME:=luci-app-shanligong
 
-include $(TOPDIR)/feeds/luci/luci.mk
-
 define Package/luci-app-shanligong/install
 	chmod +x $(1)/etc/init/*
 endef
 
+include $(TOPDIR)/feeds/luci/luci.mk
 
 $(eval $(call BuildPackage,luci-app-shanligong))
