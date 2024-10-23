@@ -10,4 +10,5 @@ define Package/luci-app-shanligong/install
 	chmod +x $(1)/etc/init/*
 endef
 
+include $(TOPDIR)/feeds/luci/luci.mk
 $(eval $(call BuildPackage,luci-app-shanligong))
