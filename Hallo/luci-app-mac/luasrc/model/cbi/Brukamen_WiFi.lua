@@ -13,7 +13,7 @@ o.default = "0"
 
 
 o = s:option(ListValue, "encryption", "加密类型")
-o:value("psk", "WPA-PSK/PA2-PSK Mixed Mode")
+o:value("psk2", "WPA-PSK/PA2-PSK Mixed Mode")
 o:value("none", "无线不加密")
 o.default = "none"
 
