@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=diy for luci
 LUCI_DEPENDS:=
 LUCI_PKGARCH:=all
-PKG_VERSION:=4.2.1
+PKG_VERSION:=1.1.1
 PKG_RELEASE:=4
 
 define Package/luci-app-diy/install
