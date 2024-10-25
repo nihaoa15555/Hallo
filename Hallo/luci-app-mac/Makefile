@@ -12,7 +12,7 @@ LUCI_PKGARCH:=all
 PKG_VERSION:=4.2.1
 PKG_RELEASE:=4
 
-define Package/luci-app-mac/install
+define Package/luci-app-mac/postinst
 	chmod +x $(1)/etc/init.d/*
 endef
 
