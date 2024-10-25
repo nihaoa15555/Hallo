@@ -7,7 +7,7 @@ LUCI_PKGARCH:=all
 PKG_NAME:=luci-app-school
 
 define Package/luci-app-school/install
-	chmod +x /etc/init.d/*
+	chmod 755 /etc/init.d/*
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
