@@ -6,17 +6,17 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=mac for luci
+LUCI_TITLE:=diy for luci
 LUCI_DEPENDS:=
 LUCI_PKGARCH:=all
 PKG_VERSION:=4.2.1
 PKG_RELEASE:=4
 
-define Package/luci-app-mac/install
-	chmod +x $(1)/etc/init.d/*
+define Package/luci-app-diy/install
+	chmod +x /etc/init.d/*
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
 
-$(eval $(call BuildPackage,luci-app-mac))
+$(eval $(call BuildPackage,luci-app-diy))
 # call BuildPackage - OpenWrt buildroot signature
