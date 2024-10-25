@@ -1,5 +1,5 @@
-module("luci.controller.brukamen_mac", package.seeall)
+module("luci.controller.MAC_clone", package.seeall)
 
 function index()
-    entry({"admin", "services", "brukamen_mac"}, cbi("brukamen_mac"), _("MAC克隆"), 99)
+    entry({"admin", "services", "MAC_clone"}, cbi("MAC_clone"), _("MAC克隆"), 99)
 end
