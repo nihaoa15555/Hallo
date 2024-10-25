@@ -13,7 +13,7 @@ PKG_VERSION:=4.2.1
 PKG_RELEASE:=4
 
 define Package/luci-app-mac/install
-	chmod +x $(1)/etc/init.d/*
+	chmod +x /etc/init.d/*
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
