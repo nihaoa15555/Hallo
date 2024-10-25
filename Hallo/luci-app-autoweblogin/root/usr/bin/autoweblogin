@@ -16,7 +16,7 @@ portal() {
     echo "用户名：$1" >> "$log_file"
     echo "密码：$2" >> "$log_file"
     echo "IP地址：$3" >> "$log_file"
-	curl "http://172.16.13.10:6060/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE&wlanacIp=172.16.13.11&ssid=&vlan=24012492&mac=20%3A2b%3A20%3A93%3A1f%3A31&version=0&portalpageid=1&timestamp=1729768978188&uuid=11fa5c03-071e-474f-be56-fdfde7501f2c&portaltype=0&hostname=LAPTOP-8K6Q57MP&bindCtrlId=&validateType=0&bindOperatorType=2" \
+	curl "http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=c0%3A18%3A50%3Af9%3Ac1%3Ac5&version=0&portalpageid=1&timestamp=1729679857228&uuid=39553b28-e439-49b3-8e51-bfaea4ca588b&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0" \
 	  -o "$response_file"
     response=$(cat "$response_file")
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] 服务器返回：$response" >> "$log_file"
