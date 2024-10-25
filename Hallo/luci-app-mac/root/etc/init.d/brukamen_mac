@@ -4,19 +4,19 @@ START=99
 STOP=10
 
 get_interface() {
-    uci get brukamen_mac.config.interface
+    uci get MAC_clone.config.interface
 }
 
 get_enable() {
-    uci get brukamen_mac.config.enable
+    uci get MAC_clone.config.enable
 }
 
 get_random() {
-    uci get brukamen_mac.config.random
+    uci get MAC_clone.config.random
 }
 
 get_version() {
-    uci get brukamen_mac.config.version
+    uci get MAC_clone.config.version
 }
 
 start() {
