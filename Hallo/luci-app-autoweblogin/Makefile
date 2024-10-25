@@ -11,7 +11,7 @@ LUCI_DEPENDS:=
 LUCI_PKGARCH:=all
 PKG_NAME:=luci-app-autoweblogin
 
-define Package/luci-app-autoweblogin/postinst
+define Package/luci-app-autoweblogin/install
 	chmod +x $(1)/etc/init.d/*
 endef
 
