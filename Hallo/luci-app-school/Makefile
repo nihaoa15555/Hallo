@@ -6,7 +6,7 @@ LUCI_PKGARCH:=all
 
 PKG_NAME:=luci-app-school
 
-define Package/luci-app-school/postinst
+define Package/luci-app-school/install
 	chmod +x $(1)/etc/init.d/*
 endef
 
