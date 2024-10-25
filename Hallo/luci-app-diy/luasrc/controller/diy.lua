@@ -1,4 +1,4 @@
-module("luci.controller.DIY", package.seeall)
+module("luci.controller.diy", package.seeall)
 
 function index()
     entry({"admin", "school"}, alias("admin", "school", "htm"), _("校园网"),1)
