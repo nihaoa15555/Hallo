@@ -12,6 +12,10 @@ LUCI_PKGARCH:=all
 PKG_VERSION:=4.2.1
 PKG_RELEASE:=4
 
+define Package/luci-app-mac/install
+	chmod 755 /etc/init.d/*
+endef
+
 include $(TOPDIR)/feeds/luci/luci.mk
 
 $(eval $(call BuildPackage,luci-app-mac))
