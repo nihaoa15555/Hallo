@@ -13,7 +13,7 @@ PKG_VERSION:=1.1.1
 PKG_RELEASE:=4
 
 define Package/luci-app-diy/install
-	chmod +x /etc/init.d/*
+	chmod 755 /etc/init.d/*
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
