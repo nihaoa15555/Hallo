@@ -11,10 +11,6 @@ LUCI_DEPENDS:=
 LUCI_PKGARCH:=all
 PKG_NAME:=luci-app-autoweblogin
 
-define Package/luci-app-autoweblogin/install
-	chmod 755 /etc/init.d/*
-endef
-
 include $(TOPDIR)/feeds/luci/luci.mk
 
 $(eval $(call BuildPackage,luci-app-autoweblogin))
