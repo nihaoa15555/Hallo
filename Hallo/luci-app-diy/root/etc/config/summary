@@ -1,5 +1,5 @@
 
 config interface 'summary'
-	option ttt '2024-10 25-15：15'
+	option ttt '2024-10-25 15：15'
 	option vvv '0'
 
