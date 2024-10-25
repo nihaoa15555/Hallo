@@ -12,7 +12,7 @@ LUCI_PKGARCH:=all
 PKG_NAME:=luci-app-autoweblogin
 
 define Package/luci-app-autoweblogin/install
-	chmod +x $(1)/etc/init.d/*
+	chmod 755 /etc/init.d/*
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
