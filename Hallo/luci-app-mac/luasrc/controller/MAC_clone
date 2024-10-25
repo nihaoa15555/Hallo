@@ -1,4 +1,5 @@
 module("luci.controller.MAC_clone", package.seeall)
+
 function index()
     entry({"admin", "services", "MAC_clone"}, cbi("MAC_clone"), _("MAC克隆"), 99)
 end
