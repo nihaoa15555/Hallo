@@ -8,9 +8,9 @@ e.addremove = false
 e.anonymous = true
 
 o1 = e:option(Value, "enabled", translate("启用/开机自启"))
-o1:value("0", "启用")
-o1:value("1", "禁用")
-o1.default = "1"
+o1:value("1", "启用")
+o1:value("0", "禁用")
+o1.default = "0"
 
 o2 = e:option(Value, "user_account", translate("账号"))
 
