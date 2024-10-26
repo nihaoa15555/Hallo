@@ -17,7 +17,7 @@ o = e:option(Flag, "random", translate("开机时使用随机MAC"))
 o.default = "0"
 o.rmempty = false
 
-o = e:option(Value, "interface", translate("选择接口"), translate("确保选择正确的 有线/无线 接口，修改一些特殊的接口可能导致宕机！！"))
+o = e:option(Value, "interface", translate("选择接口"), translate("确保选择正确的 有线/无线 接口"))
 for t, e in ipairs(i.net.devices()) do
     if e ~= "lo" then
         local mac_address = io.popen("ifconfig " .. e .. " | grep HWaddr | awk '{ print $5 }'")
