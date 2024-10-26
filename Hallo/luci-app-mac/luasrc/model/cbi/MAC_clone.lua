@@ -13,7 +13,7 @@ e.anonymous = true
 o1 = e:option(value, "enable", translate("启用MAC克隆"))
 o1:value("0", "启用")
 o1:value("1", "禁用")
-o1.default = "1"
+o1.default = "0"
 
 o = e:option(value, "random", translate("开机时使用随机MAC"))
 o1:value("0", "启用")
