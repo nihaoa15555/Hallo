@@ -15,10 +15,10 @@ o1:value("1", "启用")
 o1:value("0", "禁用")
 o1.default = "0"
 
-o = e:option(ListValue, "random", translate("开机时使用随机MAC"))
-o1:value("1", "启用")
-o1:value("0", "禁用")
-o1.default = "0"
+o2 = e:option(ListValue, "random", translate("开机时使用随机MAC"))
+o2:value("1", "启用")
+o2:value("0", "禁用")
+o2.default = "0"
 
 o = e:option(Value, "interface", translate("选择接口"), translate("确保选择正确的 有线/无线 接口"))
 for t, e in ipairs(i.net.devices()) do
