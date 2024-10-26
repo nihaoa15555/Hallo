@@ -40,7 +40,7 @@ end
 
 o = e:option(Value, "version", translate("手动修改mac"))
 o.description = translate("当前设备（你的电脑）mac地址：" .. get_login_device_mac())
-o.default = "00:aa:bb:cc:dd:ee"
+o.default = "a1:b2:c3:d4:e5:f6"
 o.rmempty = false
 
 m.on_commit = function(self)
