@@ -8,29 +8,34 @@ s = m:section(TypedSection, "school")
 s.addremove = false
 s.anonymous = true
 
-IPID = s:option(Flag, "IPID", translate("iptables IPID 防检测"))
-IPID.default = 0
+IPID = s:option(Value, "IPID", translate("iptables IPID 防检测"))
+IPID:value("0", "启用")
+IPID:value("1", "禁用")
+IPID.default = "0"
 IPID.description = translate("iptables IPID 防检测")
-IPID.rmempty=false
 
-IUA = s:option(Flag, "IUA", translate("修改 HTTP-Headr 防检测"))
-IPID.default = 0
+IUA = s:option(Value, "IUA", translate("修改 HTTP-Headr 防检测"))
+IUA:value("0", "启用")
+IUA:value("1", "禁用")
+IUA.default = "0"
 IUA.description = translate("修改 HTTP-Headr 防检测")
-IUA.rmempty=false
 
-INTP = s:option(Flag, "INTP", translate("修正 NTP 防检测"))
-INTP.default = 0
-IUA.description = translate("修正 NTP 防检测")
-IUA.rmempty=false
+INTP = s:option(Value, "INTP", translate("修正 NTP 防检测"))
+INTP:value("0", "启用")
+INTP:value("1", "禁用")
+INTP.default = "0"
+INTP.description = translate("修正 NTP 防检测")
 
-ITTL = s:option(Flag, "ITTL", translate("iptables 修改 TTL 防检测"))
-ITTL.default = 0
-IUA.description = translate("iptables 修改 TTL 防检测")
-IUA.rmempty=false
+ITTL = s:option(Value, "ITTL", translate("iptables 修改 TTL 防检测"))
+ITTL:value("0", "启用")
+ITTL:value("1", "禁用")
+ITTL.default = "0"
+ITTL.description = translate("iptables 修改 TTL 防检测")
 
-IACFlash = s:option(Flag, "IACFlash", translate("iptables 拒绝 AC 进行 Flash 检测"))
-IACFlash.default = 0
+IACFlash = s:option(Value, "IACFlash", translate("iptables 拒绝 AC 进行 Flash 检测"))
+IACFlash:value("0", "启用")
+IACFlash:value("1", "禁用")
+IACFlash.default = "0"
 IACFlash.description = translate("iptables 拒绝 AC 进行 Flash 检测")
-IACFlash.rmempty=false
 
 return m
