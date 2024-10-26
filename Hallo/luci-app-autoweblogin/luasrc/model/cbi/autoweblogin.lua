@@ -17,7 +17,7 @@ o2 = e:option(Value, "user_account", translate("账号"))
 o3 = e:option(Value, "user_password", translate("密码"))
 o3.password = true
 
-o = e:option(Value, "interface", translate("选择获取IP的接口"), translate("根据实际情况选择外网接口，一般为eth0.1或wan"))
+o = e:option(Value, "interface", translate("选择获取IP的接口"), translate("根据实际情况选择外网接口，一般为eth1或wan"))
 for t, e in ipairs(i.net.devices()) do
     if e ~= "lo" then o:value(e) end
 end
