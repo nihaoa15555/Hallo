@@ -10,12 +10,15 @@ e = m:section(TypedSection, "MAC_clone")
 e.addremove = false
 e.anonymous = true
 
-o = e:option(Flag, "enable", translate("启用"))
-o.rmempty = false
+o1 = e:option(value, "enable", translate("启用MAC克隆"))
+o1:value("0", "启用")
+o1:value("1", "禁用")
+o1.default = "1"
 
-o = e:option(Flag, "random", translate("开机时使用随机MAC"))
-o.default = "0"
-o.rmempty = false
+o = e:option(value, "random", translate("开机时使用随机MAC"))
+o1:value("0", "启用")
+o1:value("1", "禁用")
+o1.default = "1"
 
 o = e:option(Value, "interface", translate("选择接口"), translate("确保选择正确的 有线/无线 接口"))
 for t, e in ipairs(i.net.devices()) do
