@@ -18,7 +18,7 @@ s = m:section(TypedSection, "login", "")
 s.addremove = false
 s.anonymous = true
 
-enable = s:option(Value, "enable", translate("启用"))
+enable = s:option(ListValue, "enable", translate("启用"))
 enable:value("1", "启用")
 enable:value("0", "禁用")
 enable.default = "0"
