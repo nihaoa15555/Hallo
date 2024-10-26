@@ -19,9 +19,9 @@ s.addremove = false
 s.anonymous = true
 
 enable = s:option(Value, "enable", translate("启用"))
-enable:value("0", "启用")
-enable:value("1", "禁用")
-enable.default = "1"
+enable:value("1", "启用")
+enable:value("0", "禁用")
+enable.default = "0"
 pass = s:option(Value, "minute", translate("分"))
 hour = s:option(Value, "hour", translate("时"))
 
