@@ -5,7 +5,7 @@ local m, e
 
 m = Map("MAC_clone", translate("MAC克隆"), translate("MAC通常用于特定的上网环境，可以模拟特定设备与上游设设备通讯"))
 
-m:section(SimpleSection).template = "MAC_clone/MAC_clone"
+m:section(SimpleSection).template = "MAC_clone"
 
 e = m:section(TypedSection, "MAC_clone")
 e.addremove = false
