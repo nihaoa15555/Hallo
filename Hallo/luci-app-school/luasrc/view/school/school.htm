@@ -4,10 +4,10 @@ XHR.poll(1, '<%=url([[admin]], [[services]], [[school]], [[status]])%>', null,
 		var tb = document.getElementById('school_status');
 		if (data && tb) {
 			if (data.running) {
-				var links = '<em style=\"color:green\"><b>IPID设置 已开启</b></em>';
+				var links = '<em style=\"color:green\"><b> 已开启IPID设置 </b></em>';
 				tb.innerHTML = links;
 			} else {
-				tb.innerHTML = '<em style=\"color:red\"><b>IPID设置 未启用</b></em>';
+				tb.innerHTML = '<em style=\"color:red\"><b> 未启用IPID设置 </b></em>';
 			}
 		}
 	}
