@@ -38,4 +38,8 @@ IACFlash:value("0", "禁用")
 IACFlash.default = "0"
 IACFlash.description = translate("iptables 拒绝 AC 进行 Flash 检测")
 
+m.on_commit = function(self)
+    luci.sys.call("/etc/init.d/school start")
+end
+
 return m
