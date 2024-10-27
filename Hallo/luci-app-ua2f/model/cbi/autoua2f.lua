@@ -36,7 +36,7 @@ o5:value("1", "启用")
 o5:value("0", "禁用")
 o5.default = "0"
 
-o6 = e:option(ListValue, "Custom_UA", translate("自定义用户代理"), translate("自定义用户代理字符串，长度不足则填充空格，过长则截取与原来长度相同的子串"))
+o6 = e:option(Value, "Custom_UA", translate("自定义用户代理"), translate("自定义用户代理字符串，长度不足则填充空格，过长则截取与原来长度相同的子串"))
 o6.default = "Mozilla/5.0 (Window NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/555.66"
 
 m.on_commit = function(self)
