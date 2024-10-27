@@ -4,10 +4,10 @@ XHR.poll(1, '<%=url([[admin]], [[services]], [[MAC_clone]], [[status]])%>', null
 		var tb = document.getElementById('MAC_clone_status');
 		if (data && tb) {
 			if (data.running) {
-				var links = '<em style=\"color:green\"><b>MAC克隆 已开启</b></em>';
+				var links = '<em style=\"color:green\"><b> 已开启MAC克隆 </b></em>';
 				tb.innerHTML = links;
 			} else {
-				tb.innerHTML = '<em style=\"color:red\"><b>MAC克隆 未启用</b></em>';
+				tb.innerHTML = '<em style=\"color:red\"><b> 未启用MAC克隆 </b></em>';
 			}
 		}
 	}
