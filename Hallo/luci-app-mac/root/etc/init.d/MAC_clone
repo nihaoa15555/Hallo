@@ -34,7 +34,3 @@ start() {
         fi
     fi
 }
-stop() {
-    /etc/init.d/MAC_clone stop
-    logger "MAC克隆未启用"
-}
