@@ -2,7 +2,6 @@ m = Map("school")
 m.title = translate("Campus network detection bypass")
 m.description = translate("Bypass campus network device detection")
 
-m:section(SimpleSection).template  = "school/school"
 
 s = m:section(TypedSection, "school")
 s.addremove = false
