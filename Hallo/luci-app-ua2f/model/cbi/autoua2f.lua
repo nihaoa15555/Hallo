@@ -39,8 +39,6 @@ o5.default = "0"
 o6 = e:option(Value, "Custom_UA", translate("自定义用户代理"), translate("自定义UA设置"))
 o6.default = "Mozilla/5.0 (Window NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/555.66"
 
-m:section(SimpleSection).template = "ua2f/ua2f_A"
-
 m.on_commit = function(self)
     luci.sys.call("/etc/init.d/autoua2f start")
 end
