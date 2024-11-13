@@ -20,7 +20,7 @@ o2:value("1", "启用")
 o2:value("0", "禁用")
 o2.default = "0"
 
-o = e:option(Value, "interface", translate("选择接口"), translate("确保选择正确的 有线/无线 接口"))
+o = e:option(ListValue, "interface", translate("选择接口"), translate("确保选择正确的 有线/无线 接口"))
 for t, e in ipairs(i.net.devices()) do
     if e ~= "lo" then
         local mac_address = io.popen("ifconfig " .. e .. " | grep HWaddr | awk '{ print $5 }'")
