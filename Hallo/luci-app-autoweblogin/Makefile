@@ -14,11 +14,6 @@ PKG_NAME:=luci-app-autoweblogin
 PKG_VERSION:=1  
 PKG_RELEASE:=11  
 
-define Package/luci-app-autoweblogin/install  
-	$(INSTALL_DIR) $(1)/etc/init.d  
-	$(INSTALL_BIN) ./root/etc/init.d/autoweblogin $(1)/etc/init.d/autoweblogin  
-endef  
-
 include $(TOPDIR)/feeds/luci/luci.mk  
 
 $(eval $(call BuildPackage,luci-app-autoweblogin))
