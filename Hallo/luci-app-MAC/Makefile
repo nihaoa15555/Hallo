@@ -1,6 +1,6 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=luci-app-MAC_clone
+PKG_NAME:=luci-app-MAC
 PKG_VERSION=1.0.0
 PKG_RELEASE:=1
 
