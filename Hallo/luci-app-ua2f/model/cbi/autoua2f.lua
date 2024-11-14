@@ -3,8 +3,8 @@ m.description = translate([[
         <span style="font-family: '微软雅黑'; color: black">有网络的情况时下方会显示你的UA若为两个同的即为成功</span>
     ]])
     
-m:section(SimpleSection).template = "ua/ua"
-m:section(SimpleSection).template = "ua/ua_A"
+m:section(SimpleSection).template = "ua2f/ua2f"
+m:section(SimpleSection).template = "ua2f/ua2f_A"
 
 e = m:section(TypedSection, "autoua", translate("防检测"))
 e.addremove = false
