@@ -15,12 +15,12 @@ o1:value("1", "启用")
 o1:value("0", "禁用")
 o1.default = "0"
 
-o2 = e:option(ListValue, "handle_intranet", translate("IPID设置"), translate("启用IPID修改"))
+o2 = e:option(ListValue, "handle_intranet", translate("启用IPID设置"))
 o2:value("1", "启用")
 o2:value("0", "禁用")
 o2.default = "1"
 
-o3 = e:option(ListValue, "handle_fw", translate("自动配置防火墙"), translate("是否自动添加防火墙规则"))
+o3 = e:option(ListValue, "handle_fw", translate("自动配置防火墙"))
 o3:value("1", "启用")
 o3:value("0", "禁用")
 o3.default = "1"
