@@ -46,4 +46,4 @@ define Package/luci-app-autoweblogin/install
 
 endef
 
-$(eval $(call BuildPackage,luci-app-ua2f))
+$(eval $(call BuildPackage,luci-app-autoweblogin))
