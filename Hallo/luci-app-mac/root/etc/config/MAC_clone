@@ -1,0 +1,6 @@
+config MAC_clone 'config'
+	option interface ''
+	option enable '0'
+	option random '0'
+	option version ''
+
