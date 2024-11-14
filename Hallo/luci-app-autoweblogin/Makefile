@@ -37,7 +37,7 @@ define Package/luci-app-autoweblogin/install
 	$(INSTALL_DIR) $(1)/etc/init.d/
 	$(INSTALL_DIR) $(1)/usr/lib/autoweblogin
 
-        $(INSTALL_BIN) ./login.sh $(1)/usr/lib/autoweblogin/login.sh
+        $(INSTALL_BIN) ./autoweblogin.sh $(1)/usr/lib/autoweblogin/autoweblogin.sh
 
 	$(INSTALL_BIN) ./controller/autoweblogin.lua $(1)/usr/lib/lua/luci/controller/autoweblogin.lua
 	$(INSTALL_BIN) ./model/cbi/* $(1)/usr/lib/lua/luci/model/cbi/*
