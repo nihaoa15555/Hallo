@@ -8,7 +8,7 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/luci-app-MAC_clone
+define Package/luci-app-MAC
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
@@ -16,8 +16,8 @@ define Package/luci-app-MAC_clone
 	PKGARCH:=all
 endef
 
-define Package/luci-app-MAC_clone/description
-	Configure MAC_clone on the web.
+define Package/luci-app-MAC/description
+	Configure MAC on the web.
 endef
 
 define Build/Prepare
@@ -29,7 +29,7 @@ endef
 define Build/Compile
 endef
 
-define Package/luci-app-MAC_clone/install
+define Package/luci-app-MAC/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi/
 	$(INSTALL_DIR) $(1)/etc/config/
@@ -41,4 +41,4 @@ define Package/luci-app-MAC_clone/install
 	$(INSTALL_BIN) ./etc/init.d/MAC_clone $(1)/etc/init.d/MAC_clone
 endef
 
-$(eval $(call BuildPackage,luci-app-MAC_clone))
+$(eval $(call BuildPackage,luci-app-MAC))
