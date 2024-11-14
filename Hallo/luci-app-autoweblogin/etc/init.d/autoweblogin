@@ -11,18 +11,18 @@ start()
 		mkdir -p /tmp/log/suselogin
 	fi
 	rm -rf /tmp/log/suselogin/login.log
-	state=`pgrep -f "/usr/lib/suselogin/login.sh"`
+	state=`pgrep -f "/usr/lib/autoweblogin/autoweblogin.sh"`
 	if [ ! -z "$state" ]; then
 		restart
 	else
-		/usr/lib/suselogin/login.sh &
+		/usr/lib/autoweblogin/autoweblogin.sh &
 	fi
     echo "$(date "+%Y-%m-%d %H:%M:%S"): 已启动"
 }
 
 stop()
 {
-	kill -9 `pgrep -f "/usr/lib/suselogin/login.sh"` 2>/dev/null
+	kill -9 `pgrep -f "/usr/lib/autoweblogin/autoweblogin.sh"` 2>/dev/null
     echo "$(date "+%Y-%m-%d %H:%M:%S"): 已停止"
 }
 
