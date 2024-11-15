@@ -12,6 +12,12 @@ o1:value("1", "启用")
 o1:value("0", "禁用")
 o1.default = "0"
 
+o6 = e:option(ListValue, "mode", translate("模式选择"))
+o6:value("mode0", "未选择")
+o6:value("mode1", "模式1")
+o6:value("mode2", "模式2")
+o6.default = "mode0"
+
 o2 = e:option(Value, "user_account", translate("账号"))
 
 o3 = e:option(Value, "user_password", translate("密码"))
