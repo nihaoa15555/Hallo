@@ -8,17 +8,20 @@ USER_ACCOUNT2="$(uci get autoweblogin.config.user_account2)"
 USER_PASSWORD2="$(uci get autoweblogin.config.user_password2)"  
 alternative="$(uci get autoweblogin.config.alternative)"  
 TIME="$(uci get autoweblogin.config.time)"  
-MODE="$(uci get autoweblogin.config.mode)"
-WLAN_USER_IP="$(ifconfig $IFCONFIG | grep 'inet addr:' | grep -oE '([0-9]{1,3}.){3}.[0-9]{1,3}' | head -n 1)"  
+MODE="$(uci get autoweblogin.config.mode)"  
+WLAN_USER_IP="$(ip addr show $IFCONFIG | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1 | head -n 1)"  
 response_file="/tmp/response.txt"  
 log_file="/tmp/log/autoweblogin.log"  
+
+# 创建日志目录  
+mkdir -p /tmp/log  
 
 # 记录开始运行  
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] 开始运行" >> "$log_file"  
 
 # portal 函数  
 portal() {  
-    rm "$response_file"  
+    rm -f "$response_file"  
     echo "请求参数：" >> "$log_file"  
     echo "用户名：$1" >> "$log_file"  
     echo "密码：$2" >> "$log_file"  
@@ -59,10 +62,7 @@ while true; do
             break  
         else  
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"  
-            
-            # 这里假设从环境变量或脚本参数中获取模式  
-            mode="${1:-mode1}"  # 默认模式为mode1  
-            portal $USER_ACCOUNT $USER_PASSWORD $WLAN_USER_IP $mode  
+            portal "$USER_ACCOUNT" "$USER_PASSWORD" "$WLAN_USER_IP" "$MODE"  # 调用 portal 函数  
             sleep 3  
 
             if ping -c 1 223.5.5.5 >/dev/null; then  
@@ -70,7 +70,7 @@ while true; do
             else  
                 if [ "$alternative" = "1" ]; then  
                     echo "[$(date '+%Y-%m-%d %H:%M:%S')] 尝试使用备选账号登录..." >> "$log_file"  
-                    portal $USER_ACCOUNT2 $USER_PASSWORD2 $WLAN_USER_IP $mode  
+                    portal "$USER_ACCOUNT2" "$USER_PASSWORD2" "$WLAN_USER_IP" "$MODE"  # 使用备选账号  
                     sleep 3  
                     if ping -c 1 223.5.5.5 >/dev/null; then  
                         echo "备选账号认证成功！" >> "$log_file"  
