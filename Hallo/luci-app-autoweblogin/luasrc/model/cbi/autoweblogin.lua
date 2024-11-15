@@ -37,13 +37,13 @@ m:section(SimpleSection).template = "autoweblogin/autoweblogin_button"
 local apply = luci.http.formvalue("cbi.apply")  
 if apply then  
     local mode = luci.http.formvalue("mode")  
+    -- 直接检查模式，不再重定向  
     if mode == "mode0" then  
-        luci.http.redirect(luci.dispatcher.build_url("your/error/page"))  -- 重定向到错误页面  
-        return  
+        return  -- 不做任何处理或直接返回  
     end  
     local user_account = luci.http.formvalue("user_account")  
     local user_password = luci.http.formvalue("user_password")  
-    
+
     -- 调用脚本，并将参数传递给它  
     os.execute(string.format("/usr/bin/autoweblogin %s %s %s", mode, user_account, user_password))  
 
