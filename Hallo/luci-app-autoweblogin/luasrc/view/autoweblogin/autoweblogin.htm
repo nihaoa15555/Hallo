@@ -1,5 +1,5 @@
 <script type="text/javascript">//<![CDATA[
-XHR.poll(1, '<%=url([[admin]], [[services]], [[autoweblogin]], [[status]])%>', null,
+XHR.poll(1, '<%=url([[admin]], [[auto]], [[autoweblogin]], [[status]])%>', null,
 	function(x, data) {
 		var tb = document.getElementById('autoweblogin_status');
 		if (data && tb) {
