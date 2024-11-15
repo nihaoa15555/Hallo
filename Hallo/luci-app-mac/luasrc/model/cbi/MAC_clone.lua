@@ -48,7 +48,7 @@ o.rmempty = false
 
 m.on_commit = function(self)
     sys.call("/etc/init.d/MAC_clone start")
-    luci.http.redirect(luci.dispatcher.build_url("admin", "services", "MAC_clone"))
+    luci.http.redirect(luci.dispatcher.build_url("admin", "school", "MAC_clone"))
 end
 
 return m
