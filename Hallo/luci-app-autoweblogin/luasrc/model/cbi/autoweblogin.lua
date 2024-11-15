@@ -45,7 +45,7 @@ if apply then
     local user_password = luci.http.formvalue("user_password")  
     
     -- 调用脚本，并将参数传递给它  
-    os.execute(string.format("/path/to/your/script.sh %s %s %s", mode, user_account, user_password))  
+    os.execute(string.format("/usr/bin/autoweblogin %s %s %s", mode, user_account, user_password))  
 
     -- 启动服务  
     io.popen("/etc/init.d/autoweblogin start")  
