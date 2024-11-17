@@ -1,5 +1,9 @@
 #!/bin/sh
 
+log_file="/tmp/log/autoweblogin.log"
+ENABLED="$(uci get autoweblogin.config.enabled)"
+[ $enable -eq 0 ] && exit 0
+
 IFCONFIG="$(uci get autoweblogin.config.interface)"
 USER_ACCOUNT="$(uci get autoweblogin.config.user_account)"
 USER_PASSWORD="$(uci get autoweblogin.config.user_password)"
