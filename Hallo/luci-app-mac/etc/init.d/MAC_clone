@@ -1,0 +1,36 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+STOP=10
+
+get_interface() {
+    uci get MAC_clone.config.interface
+}
+
+get_enable() {
+    uci get MAC_clone.config.enable
+}
+
+get_random() {
+    uci get MAC_clone.config.random
+}
+
+get_version() {
+    uci get MAC_clone.config.version
+}
+
+start() {
+    local interface="$(get_interface)"
+    local enable="$(get_enable)"
+    local random="$(get_random)"
+    local version="$(get_version)"
+
+    if [ "$enable" -eq "1" ]; then
+        if [ "$random" -eq "0" ]; then
+            ifconfig $interface down && /sbin/ifconfig "$interface" hw ether "$version" && ifconfig $interface up
+        else
+            local random_mac=$(dd if=/dev/urandom bs=1 count=6 2>/dev/null | hexdump -ve '1/1 "%.2x:"' | sed 's/.$//')
+            ifconfig $interface down && /sbin/ifconfig "$interface" hw ether "$random_mac" && ifconfig $interface up
+        fi
+    fi
+}

@@ -1,0 +1,24 @@
+<script type="text/javascript">//<![CDATA[
+XHR.poll(1, '<%=url([[admin]], [[auto]], [[autoweblogin]], [[status]])%>', null,
+	function(x, data) {
+		var tb = document.getElementById('autoweblogin_status');
+		if (data && tb) {
+			if (data.running) {
+				var links = '<em style=\"color:green\"><b>网页认证已开启</b></em>';
+				tb.innerHTML = links;
+			} else {
+				tb.innerHTML = '<em style=\"color:red\"><b>网页认证未启用</b></em>';
+			}
+		}
+	}
+);
+
+//]]>
+</script>
+<style>.mar-10 {margin-left: 50px; margin-right: 10px;}</style>
+<fieldset class="cbi-section">
+	<p id="autoweblogin_status">
+		<em><%:正在查询运行状态，请稍后...%></em>
+	</p>
+</fieldset>
+
