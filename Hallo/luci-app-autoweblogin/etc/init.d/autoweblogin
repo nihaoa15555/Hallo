@@ -1,32 +1,40 @@
 #!/bin/sh /etc/rc.common
 
+# Copyright 2020 BlackYau <blackyau426@gmail.com>
+# GNU General Public License v3.0
+
 START=99
 
-log_file="/tmp/log/autoweblogin.log"
-ENABLED="$(uci get autoweblogin.config.enabled)"
 
-start() {
-  if [ "$ENABLED" -eq 0 ]; then
-    kill -9 $(pgrep -f "sh /etc/autoweblogin/autoweblogin.sh") 2>/dev/null
-    echo "[$(date "+%Y-%m-%d %H:%M:%S")]: 已停用" >> "$log_file"
-    return 1
-  else
-    kill -9 $(pgrep -f "sh /etc/autoweblogin/autoweblogin.sh") 2>/dev/null
-    sh /etc/autoweblogin/autoweblogin.sh &
-    echo "[$(date "+%Y-%m-%d %H:%M:%S")]: 启用认证" >> "$log_file"
-  fi
+start()
+{
+	if [ ! -d /tmp/log/autoweblogin ];then
+		mkdir -p /tmp/log/autoweblogin
+	fi
+	rm -rf /tmp/log/autoweblogin.log
+	state=`pgrep -f "/etc/autoweblogin/autoweblogin.sh"`
+	if [ ! -z "$state" ]; then
+		restart
+	else
+		/etc/autoweblogin/autoweblogin.sh &
+	fi
+    echo "$(date "+%Y-%m-%d %H:%M:%S"): 已启动"
 }
 
-stop() {
-    kill -9 $(pgrep -f "sh /etc/autoweblogin/autoweblogin.sh") 2>/dev/null
-    echo "[$(date "+%Y-%m-%d %H:%M:%S")]: 已停止认证" >> "$log_file"
+stop()
+{
+	kill -9 `pgrep -f "/etc/autoweblogin/autoweblogin.sh"` 2>/dev/null
+    echo "$(date "+%Y-%m-%d %H:%M:%S"): 已停止"
 }
 
-restart() {
-    stop
-    sleep 1
-    start
-    echo "$(date "+%Y-%m-%d %H:%M:%S"): 已重新启动"
+restart()
+{
+	stop
+	sleep 1
+	start
+	echo "$(date "+%Y-%m-%d %H:%M:%S"): 已重新启动"
 }
 
-
+disable(){
+	rm -rf /tmp/log/autoweblogin/* && echo '已清空日志'
+}
