@@ -37,10 +37,10 @@ define Package/luci-app-diy/install
 	$(INSTALL_DIR) $(1)/etc/init.d/
 	
 	$(INSTALL_BIN) ./controller/diy.lua $(1)/usr/lib/lua/luci/controller/diy.lua
-	$(INSTALL_BIN) ./model/cbi/diy.lua $(1)/usr/lib/lua/luci/model/cbi/diy.lua
+	$(INSTALL_BIN) ./model/cbi/* $(1)/usr/lib/lua/luci/model/cbi/
 	$(INSTALL_DATA) ./view/overview_status/* $(1)/usr/lib/lua/luci/view/overview_status/
-	$(INSTALL_CONF) ./etc/config/diy $(1)/etc/config/diy
-	$(INSTALL_BIN) ./etc/init.d/diy $(1)/etc/init.d/diy
+	$(INSTALL_CONF) ./etc/config/* $(1)/etc/config/
+	$(INSTALL_BIN) ./etc/init.d/autoreboot $(1)/etc/init.d/autoreboot
 endef
 
 $(eval $(call BuildPackage,luci-app-diy))
