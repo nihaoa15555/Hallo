@@ -43,7 +43,7 @@ define Package/luci-app-autoweblogin/install
 	$(INSTALL_DATA) ./view/autoweblogin/* $(1)/usr/lib/lua/luci/view/autoweblogin/
 	$(INSTALL_CONF) ./etc/config/autoweblogin $(1)/etc/config/autoweblogin
 	$(INSTALL_BIN) ./etc/init.d/autoweblogin $(1)/etc/init.d/autoweblogin
-	$(INSTALL_BIN) ./autoweblogin.sh $(1)/usr/bin/autowebloginautoweblogin.sh
+	$(INSTALL_BIN) ./autoweblogin.sh $(1)/usr/bin/autoweblogin.sh
 endef
 
 $(eval $(call BuildPackage,luci-app-autoweblogin))
