@@ -1,6 +1,6 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=luci-app-autoweblogin
+PKG_NAME:=luci-app-weblogin
 PKG_VERSION=2.0.0
 PKG_RELEASE:=1
 
@@ -8,7 +8,7 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/luci-app-autoweblogin
+define Package/luci-app-weblogin
 	SECTION:=luci
 	CATEGORY:=LuCI
 	SUBMENU:=3. Applications
@@ -16,7 +16,7 @@ define Package/luci-app-autoweblogin
 	PKGARCH:=all
 endef
 
-define Package/luci-app-autoweblogin/description
+define Package/luci-app-weblogin/description
 	Edit the shell script in the web.
 endef
 
@@ -29,7 +29,7 @@ endef
 define Build/Compile
 endef
 
-define Package/luci-app-autoweblogin/install
+define Package/luci-app-weblogin/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view/cbi/
@@ -46,4 +46,4 @@ define Package/luci-app-autoweblogin/install
 	chmod +x $(1)/etc/weblogin/*
 endef
 
-$(eval $(call BuildPackage,luci-app-autoweblogin))
+$(eval $(call BuildPackage,luci-app-weblogin))
