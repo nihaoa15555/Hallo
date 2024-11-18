@@ -7,18 +7,18 @@ ENABLED="$(uci get autoweblogin.config.enabled)"
 
 start() {
   if [ "$ENABLED" -eq 0 ]; then
-    kill -9 $(pgrep -f "sh /usr/bin/autoweblogin") 2>/dev/null
+    kill -9 $(pgrep -f "sh /usr/bin/autoweblogin.sh") 2>/dev/null
     echo "[$(date "+%Y-%m-%d %H:%M:%S")]: 已停用" >> "$log_file"
     return 1
   else
-    kill -9 $(pgrep -f "sh /usr/bin/autoweblogin") 2>/dev/null
-    sh /usr/bin/autoweblogin &
+    kill -9 $(pgrep -f "sh /usr/bin/autoweblogin.sh") 2>/dev/null
+    sh /usr/bin/autoweblogin.sh &
     echo "[$(date "+%Y-%m-%d %H:%M:%S")]: 启用认证" >> "$log_file"
   fi
 }
 
 stop() {
-    kill -9 $(pgrep -f "sh /usr/bin/autoweblogin") 2>/dev/null
+    kill -9 $(pgrep -f "sh /usr/bin/autoweblogin.sh") 2>/dev/null
     echo "[$(date "+%Y-%m-%d %H:%M:%S")]: 已停止认证" >> "$log_file"
 }
 
