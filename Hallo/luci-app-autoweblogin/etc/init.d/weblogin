@@ -1,0 +1,27 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+
+dusr_bata() {
+	log_file="/tmp/log/weblogin.log"
+    ENABLED="$(uci get weblogin.config.enabled)"
+}
+
+start() {
+	dusr_bata
+    if [ "$ENABLED" -eq 1 ]; then
+		pgrep -f /etc/weblogin/ping.sh | xargs kill -9 >/dev/null 2>&1
+		sh /etc/weblogin/ping.sh &
+	else
+		pgrep -f /etc/weblogin/ping.sh | xargs kill -9 >/dev/null 2>&1
+	fi
+
+
+stop() {
+	echo "Error"
+}
+
+reload() {
+	stop
+	start
+}
