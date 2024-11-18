@@ -4,24 +4,28 @@ START=99
 
 dusr_bata() {
 	log_file="/tmp/log/weblogin.log"
-    ENABLED="$(uci get weblogin.config.enabled)"
+        ENABLED="$(uci get weblogin.config.enabled)"
 }
 
 start() {
-	dusr_bata
-    if [ "$ENABLED" -eq 1 ]; then
-		pgrep -f /etc/weblogin/ping.sh | xargs kill -9 >/dev/null 2>&1
-		sh /etc/weblogin/ping.sh &
-	else
-		pgrep -f /etc/weblogin/ping.sh | xargs kill -9 >/dev/null 2>&1
-	fi
-
+  if [ "$ENABLED" -eq 0 ]; then
+    kill -9 $(pgrep -f "sh /etc/weblogin/ping.sh") 2>/dev/null
+    echo "[$(date "+%Y-%m-%d %H:%M:%S")]: 已停用" >> "$log_file"
+    return 1
+  else
+    kill -9 $(pgrep -f "sh /etc/weblogin/ping.sh") 2>/dev/null
+    sh /etc/weblogin/ping.sh &
+    echo "[$(date "+%Y-%m-%d %H:%M:%S")]: 启用认证" >> "$log_file"
+  fi
+}
 
 stop() {
-	echo "Error"
+    kill -9 $(pgrep -f "sh /etc/weblogin/ping.sh") 2>/dev/null
+    echo "[$(date "+%Y-%m-%d %H:%M:%S")]: 已停止认证" >> "$log_file"
 }
 
-reload() {
-	stop
-	start
-}
+restart() {
+    stop
+    sleep 1
+    start
+    echo "$(date "+%Y-%m-%d %H:%M:%S"): 已重新启动"
