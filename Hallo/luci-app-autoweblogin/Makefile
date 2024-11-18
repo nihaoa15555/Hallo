@@ -39,10 +39,11 @@ define Package/luci-app-autoweblogin/install
 	
 	$(INSTALL_BIN) ./controller/autoweblogin.lua $(1)/usr/lib/lua/luci/controller/autoweblogin.lua
 	$(INSTALL_BIN) ./model/cbi/autoweblogin.lua $(1)/usr/lib/lua/luci/model/cbi/autoweblogin.lua
+	$(INSTALL_BIN) ./model/cbi/autoweblogin_log.lua $(1)/usr/lib/lua/luci/model/cbi/autoweblogin_log.lua
 	$(INSTALL_DATA) ./view/autoweblogin/* $(1)/usr/lib/lua/luci/view/autoweblogin/
 	$(INSTALL_CONF) ./etc/config/autoweblogin $(1)/etc/config/autoweblogin
 	$(INSTALL_BIN) ./etc/init.d/autoweblogin $(1)/etc/init.d/autoweblogin
-	$(INSTALL_BIN) ./autoweblogin.sh $(1)/usr/bin/autoweblogin.sh
+	$(INSTALL_BIN) ./autoweblogin.sh $(1)/usr/bin/autowebloginautoweblogin.sh
 endef
 
 $(eval $(call BuildPackage,luci-app-autoweblogin))
