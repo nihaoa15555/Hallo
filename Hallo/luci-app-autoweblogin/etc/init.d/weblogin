@@ -8,6 +8,7 @@ dusr_bata() {
 }
 
 start() {
+        dusr_bata()
   if [ "$ENABLED" -eq 0 ]; then
     kill -9 $(pgrep -f "sh /etc/weblogin/ping.sh") 2>/dev/null
     echo "[$(date "+%Y-%m-%d %H:%M:%S")]: 已停用" >> "$log_file"
