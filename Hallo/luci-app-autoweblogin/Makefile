@@ -43,7 +43,6 @@ define Package/luci-app-weblogin/install
 	$(INSTALL_CONF) ./etc/config/weblogin $(1)/etc/config/weblogin
 	$(INSTALL_BIN) ./etc/init.d/weblogin $(1)/etc/init.d/weblogin
 	$(INSTALL_DATA) ./etc/weblogin/* $(1)/etc/weblogin/
-	chmod +x $(1)/etc/weblogin/*
 endef
 
 $(eval $(call BuildPackage,luci-app-weblogin))
