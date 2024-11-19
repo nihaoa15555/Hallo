@@ -1,12 +1,10 @@
 #!/bin/sh
 
-IFCONFIG="$(uci get autoweblogin.config.interface)"
 USER_ACCOUNT="$(uci get autoweblogin.config.user_account)"
 USER_PASSWORD="$(uci get autoweblogin.config.user_password)"
-alternative="$(uci get autoweblogin.config.alternative)"
 TIME="$(uci get autoweblogin.config.time)"
 MODE="$(uci get autoweblogin.config.mode)"
-WLAN_USER_IP="$(ifconfig $IFCONFIG | grep 'inet addr:' | grep -oE '([0-9]{1,3}.){3}.[0-9]{1,3}' | head -n 1)"
+WLAN_USER_IP="$(ifconfig eth1 | grep 'inet addr:' | grep -oE '([0-9]{1,3}.){3}.[0-9]{1,3}' | head -n 1)"
 response_file="/tmp/response.txt"
 
 set_url() {  
