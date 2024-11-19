@@ -1,0 +1,32 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+
+enabled="$(uci get defense.config.enabled)"
+handle_fw="$(uci get defense.config.handle_fw)"
+handle_intranet="$(uci get defense.config.handle_intranet)"
+handle_tls="$(uci get defense.config.handle_tls)"
+handle_mmtls="$(uci get defense.config.handle_mmtls)"
+
+start() {
+    uci set ua2f.enabled.enabled=$enabled
+    uci set ua2f.firewall.handle_fw=$handle_fw
+    uci set ua2f.firewall.handle_tls=$handle_tls
+    uci set ua2f.firewall.handle_intranet=$handle_intranet
+    uci set ua2f.firewall.handle_mmtls=$handle_mmtls
+    uci set ua2f.main.custom_ua="$(uci get defense.config.Custom_UA)"
+    uci commit ua2f
+    if [ "$enabled" = "1" ]; then
+    	/etc/init.d/defense stop
+	/etc/init.d/defense start
+	logger "防检测已开启"
+    elif [ "$enabled" = "0" ]; then
+	/etc/init.d/defense stop
+	logger "防检测已停止"
+    fi
+}
+
+stop() {
+    /etc/init.d/defense stop
+    logger "防检测已停止"
+}
