@@ -6,7 +6,7 @@ m.description = translate([[
 m:section(SimpleSection).template = "defense/defense"
 m:section(SimpleSection).template = "defense/defense_A"
 
-e = m:section(TypedSection, "defense", translate("UA检测"))
+e = m:section(TypedSection, "defense", translate("检测设置"))
 e.addremove = false
 e.anonymous = true
 
