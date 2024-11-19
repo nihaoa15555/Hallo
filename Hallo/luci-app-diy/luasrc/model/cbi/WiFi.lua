@@ -13,14 +13,14 @@ o.default = "0"
 
 
 o = s:option(ListValue, "encryption", "加密类型")
-o:value("psk", "WPA/WPA2-PSK")
+o:value("psk2", "WPA/WPA2-PSK")
 o:value("none", "无线不加密")
 o.default = "none"
 
 o = s:option(Value, "key", "密码")
 o.datatype = "wpakey"
 o.password = true
-o:depends("encryption", "psk")
+o:depends("encryption", "psk2")
 o.validate = function(self, value)
     if #value < 8 then
         return nil, "密码至少需要8个字符"
