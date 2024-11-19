@@ -38,7 +38,7 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')] 开始运行" >> "$log_file"
 
 while true; do
     while true; do
-        if ping -c 1 223.5.5.5 >/dev/null; then
+        if ping -c 1 182.254.116.116 >/dev/null; then
             sleep $TIME
         else
             log_line_count=$(wc -l < "$log_file")
@@ -52,7 +52,7 @@ while true; do
     done
 
 while true; do  
-    if ping -c 1 223.5.5.5 >/dev/null; then  
+    if ping -c 1 182.254.116.116 >/dev/null; then  
         break  
     else  
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"  
@@ -60,7 +60,7 @@ while true; do
         portal "$USER_ACCOUNT" "$USER_PASSWORD" "$WLAN_USER_IP"  
         sleep 3  
 
-        if ping -c 1 223.5.5.5 >/dev/null; then  
+        if ping -c 1 182.254.116.116 >/dev/null; then  
             echo "认证成功！！" >> "$log_file"  
         else  
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证失败，重试..." >> "$log_file"  
