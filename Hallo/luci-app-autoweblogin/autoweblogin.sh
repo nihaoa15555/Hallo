@@ -11,7 +11,6 @@ response_file="/tmp/response.txt"
 
 set_url() {  
     TIMESTAMP=$(date +%s%3N)
-
     if [ "$MODE" = "0" ]; then   
         url="nothing"  
     elif [ "$MODE" = "SGXY" ]; then   
