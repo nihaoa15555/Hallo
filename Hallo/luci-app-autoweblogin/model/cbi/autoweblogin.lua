@@ -12,6 +12,11 @@ o1:value("1", "启用")
 o1:value("0", "禁用")
 o1.default = "0"
 
+o = e:option(ListValue, "mode", translate("模式选择"))
+o:value("1", "韶关学院")
+o:value("2", "沈阳科技")
+o.default = "1"
+
 o2 = e:option(Value, "user_account", translate("账号"))
 
 o3 = e:option(Value, "user_password", translate("密码"))
@@ -25,7 +30,6 @@ o.rmempty = false
 
 o5 = e:option(Value, "time", translate("网络检测间隔"), translate("以秒为单位"))
 
-m:section(SimpleSection).template = "autoweblogin/autoweblogin_button"
 
 local apply = luci.http.formvalue("cbi.apply")
 if apply then
