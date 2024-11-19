@@ -26,8 +26,8 @@
 <tr>
 <th>外网接口状态</th>
 <td>
-<% if luci.sys.exec("ip link show dev wan | grep 'state UP'") ~= "" then %>
-    <span style="color: rgb(13, 221, 13);">物理wan口已连接：100 Mbps</span>
+<% if luci.sys.exec("ip link show dev eth1 | grep 'state UP'") ~= "" then %>
+    <span style="color: rgb(13, 221, 13);">物理wan口已连接：1000 Mbps</span>
     <tr>
     <th>上级IP</th>
     <td><%=luci.sys.exec("ip route | awk '/default/ {print $3}'")%></td>
