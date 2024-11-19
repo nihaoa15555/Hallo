@@ -4,7 +4,7 @@ USER_ACCOUNT="$(uci get autoweblogin.config.user_account)"
 USER_PASSWORD="$(uci get autoweblogin.config.user_password)"
 TIME="$(uci get autoweblogin.config.time)"
 MODE="$(uci get autoweblogin.config.mode)"
-WLAN_USER_IP="$(ifconfig eth1 | grep 'inet addr:' | grep -oE '([0-9]{1,3}.){3}.[0-9]{1,3}' | head -n 1)"
+WLAN_USER_IP="$(ip addr show eth1 | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1)"
 response_file="/tmp/response.txt"
 
 set_url() {  
