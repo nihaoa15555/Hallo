@@ -1,9 +1,5 @@
 m = Map("defense", translate("防检测配置"))
-m.description = translate([[
-        <span style="font-family: '微软雅黑'; color: black">显示两个不同的UA即为成功</span>
-    ]])
-    
-m:section(SimpleSection).template = "defense/defense"
+
 m:section(SimpleSection).template = "defense/defense_A"
 
 e = m:section(TypedSection, "defense", translate("检测设置"))
