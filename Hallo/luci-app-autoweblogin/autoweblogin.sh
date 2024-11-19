@@ -7,8 +7,20 @@ USER_ACCOUNT2="$(uci get autoweblogin.config.user_account2)"
 USER_PASSWORD2="$(uci get autoweblogin.config.user_password2)"
 alternative="$(uci get autoweblogin.config.alternative)"
 TIME="$(uci get autoweblogin.config.time)"
+MODE="$(uci get autoweblogin.config.mode)"
 WLAN_USER_IP="$(ifconfig $IFCONFIG | grep 'inet addr:' | grep -oE '([0-9]{1,3}.){3}.[0-9]{1,3}' | head -n 1)"
 response_file="/tmp/response.txt"
+
+set_url() {  
+    TIMESTAMP=$(date +%s%3N)
+    if [ "$MODE" = "1" ]; then   
+        url="http://172.16.253.121/quickauth.do?userid=\$1&passwd=\$2&wlanuserip=\$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=1&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0"  
+    elif [ "$MODE" = "2" ]; then   
+        url="http://172.16.13.10:6060/quickauth.do?userid=\$1&passwd=\$2&wlanuserip=\$3&wlanacname=NFV-BASE&wlanacIp=172.16.13.11&ssid=&vlan=24012633&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=2&validateCode=&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2"  
+    elif [ "$MODE" = "3" ]; then   
+        url="xxx"
+    fi  
+}  
 
 portal() {
     rm "$response_file"
@@ -16,7 +28,7 @@ portal() {
     echo "用户名：$1" >> "$log_file"
     echo "密码：$2" >> "$log_file"
     echo "IP地址：$3" >> "$log_file"
-	curl "http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=1&timestamp=1729679857228&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0" \
+	curl "$url" \
 	  -o "$response_file"
     response=$(cat "$response_file")
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] 服务器返回：$response" >> "$log_file"
@@ -41,35 +53,19 @@ while true; do
         fi
     done
 
-    while true; do
-        if ping -c 1 223.5.5.5 >/dev/null; then
-            break
-        else
-            echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"
-            
-            portal $USER_ACCOUNT $USER_PASSWORD $WLAN_USER_IP
-            sleep 3
+while true; do  
+    if ping -c 1 223.5.5.5 >/dev/null; then  
+        break  
+    else  
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"  
 
-            if ping -c 1 223.5.5.5 >/dev/null; then
-                
-                echo "认证成功！！" >> "$log_file"
-            else
-                if [ "$alternative" = "1" ]; then
-                    
-                    echo "[$(date '+%Y-%m-%d %H:%M:%S')] 好像被封号了耶，尝试使用备选账号登录..." >> "$log_file"
-                    portal $USER_ACCOUNT2 $USER_PASSWORD2 $WLAN_USER_IP
-                    sleep 3
-                    if ping -c 1 223.5.5.5 >/dev/null; then
-                    	echo "[$(date '+%Y-%m-%d %H:%M:%S')] 备选账号认证成功！" >> "$log_file"
-                        break
-                    else
-                        echo "[$(date '+%Y-%m-%d %H:%M:%S')] 备选账号认证失败！" >> "$log_file"
-                    fi
-                else
-                    echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证失败，重试..." >> "$log_file"
-                fi  
-            fi
-        fi
-    done
-done
+        portal "$USER_ACCOUNT" "$USER_PASSWORD" "$WLAN_USER_IP"  
+        sleep 3  
 
+        if ping -c 1 223.5.5.5 >/dev/null; then  
+            echo "认证成功！！" >> "$log_file"  
+        else  
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证失败，重试..." >> "$log_file"  
+        fi  
+    fi  
+done  
