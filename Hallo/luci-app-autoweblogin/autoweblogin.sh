@@ -11,10 +11,13 @@ response_file="/tmp/response.txt"
 
 set_url() {  
     TIMESTAMP=$(date +%s%3N)
-    if [ "$MODE" = "1" ]; then   
-        url="http://172.16.253.121/quickauth.do?userid=\$1&passwd=\$2&wlanuserip=\$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=1&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0"  
-    elif [ "$MODE" = "2" ]; then   
-        url="http://172.16.13.10:6060/quickauth.do?userid=\$1&passwd=\$2&wlanuserip=\$3&wlanacname=NFV-BASE&wlanacIp=172.16.13.11&ssid=&vlan=24012633&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=2&validateCode=&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2"  
+
+    if [ "$MODE" = "0" ]; then   
+        url="nothing"  
+    elif [ "$MODE" = "SGXY" ]; then   
+        url="http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=1&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0"  
+    elif [ "$MODE" = "SYKJ" ]; then   
+        url="http://172.16.13.10:6060/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE&wlanacIp=172.16.13.11&ssid=&vlan=24012633&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=2&validateCode=&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2"  
     elif [ "$MODE" = "3" ]; then   
         url="xxx"
     fi  
