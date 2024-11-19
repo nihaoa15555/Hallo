@@ -3,8 +3,6 @@
 IFCONFIG="$(uci get autoweblogin.config.interface)"
 USER_ACCOUNT="$(uci get autoweblogin.config.user_account)"
 USER_PASSWORD="$(uci get autoweblogin.config.user_password)"
-USER_ACCOUNT2="$(uci get autoweblogin.config.user_account2)"
-USER_PASSWORD2="$(uci get autoweblogin.config.user_password2)"
 alternative="$(uci get autoweblogin.config.alternative)"
 TIME="$(uci get autoweblogin.config.time)"
 MODE="$(uci get autoweblogin.config.mode)"
