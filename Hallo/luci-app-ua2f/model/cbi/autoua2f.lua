@@ -1,8 +1,5 @@
 m = Map("autoua2f", translate("防检测配置"))
-m.description = translate([[
-        <span style="font-family: '微软雅黑'; color: black">显示两个不同的UA即为成功</span>
-    ]])
-    
+
 m:section(SimpleSection).template = "ua2f/ua2f"
 m:section(SimpleSection).template = "ua2f/ua2f_A"
 
