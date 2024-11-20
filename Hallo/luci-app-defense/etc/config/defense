@@ -1,6 +1,0 @@
-
-config defense 'config'
-	option handle_fw '0'
-	option handle_intranet '0'
-	option enabled '0'
-	
