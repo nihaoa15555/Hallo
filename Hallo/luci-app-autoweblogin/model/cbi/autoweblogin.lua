@@ -12,12 +12,6 @@ o1:value("1", "启用")
 o1:value("0", "禁用")
 o1.default = "0"
 
-o2 = e:option(ListValue, "mode", translate("模式选择"))
-o2:value("0", "未选择")
-o2:value("SGXY", "韶关学院")
-o2:value("SYKJ", "沈阳科技")
-o2.default = "0"
-
 o3 = e:option(Value, "user_account", translate("账号"))
 
 o4 = e:option(Value, "user_password", translate("密码"))
