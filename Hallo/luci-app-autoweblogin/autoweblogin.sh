@@ -3,7 +3,8 @@
 USER_ACCOUNT="$(uci get autoweblogin.config.user_account)"
 USER_PASSWORD="$(uci get autoweblogin.config.user_password)"
 TIME="$(uci get autoweblogin.config.time)"
-WLAN_USER_IP="$(ip addr show eth1 | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1)"
+WLAN_USER_IP="$(ifconfig eth1 | grep 'inet addr:' | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)"
+MAC="$(ifconfig eth1 | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}')"
 response_file="/tmp/response.txt"
 
 portal() {
@@ -12,7 +13,8 @@ portal() {
     echo "用户名：$1" >> "$log_file"
     echo "密码：$2" >> "$log_file"
     echo "IP地址：$3" >> "$log_file"
-	curl "http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=c0%3A18%3A50%3Af9%3Ac1%3Ac5&version=0&portalpageid=2&timestamp=1730174830854&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0" \
+    echo "MAC地址：$4" >> "$log_file"
+	curl "http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=$4version=0&portalpageid=2&timestamp=1730174830854&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0" \
 	  -o "$response_file"
     response=$(cat "$response_file")
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] 服务器返回：$response" >> "$log_file"
@@ -43,7 +45,7 @@ while true; do
         else
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"
             
-            portal $USER_ACCOUNT $USER_PASSWORD $WLAN_USER_IP
+            portal $USER_ACCOUNT $USER_PASSWORD $WLAN_USER_IP $MAC
             sleep 3
 
             if ping -c 1 223.5.5.5 >/dev/null; then
