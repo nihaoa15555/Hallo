@@ -8,16 +8,25 @@ WLAN_USER_IP="$(ip addr show eth1 | grep 'inet ' | awk '{print $2}' | cut -d'/' 
 response_file="/tmp/response.txt"
 
 set_url() {  
-    TIMESTAMP=$(date +%s%3N)
-    if [ "$MODE" = "0" ]; then   
-        url="nothing"  
-    elif [ "$MODE" = "SGXY" ]; then   
-        url="http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=1&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0"  
-    elif [ "$MODE" = "SYKJ" ]; then   
-        url="http://172.16.13.10:6060/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE&wlanacIp=172.16.13.11&ssid=&vlan=24012633&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=2&validateCode=&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2"  
-    elif [ "$MODE" = "3" ]; then   
-        url="xxx"
-    fi  
+    TIMESTAMP=$(date +%s%3N)  
+    case "$MODE" in  
+        "0")  
+            url="nothing"  
+            ;;  
+        "SGXY")  
+            url="http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=1&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0"  
+            ;;  
+        "SYKJ")  
+            url="http://172.16.13.10:6060/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE&wlanacIp=172.16.13.11&ssid=&vlan=24012633&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=2&validateCode=&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2"  
+            ;;  
+        "3")  
+            url="xxx"  
+            ;;  
+        *)  
+            echo "模式: $MODE" >> "$log_file"  
+            return 1  
+            ;;  
+    esac  
 }  
 
 portal() {
@@ -38,7 +47,7 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')] 开始运行" >> "$log_file"
 
 while true; do
     while true; do
-        if ping -c 1 182.254.116.116 >/dev/null; then
+        if ping -c 1 223.5.5.5 >/dev/null; then
             sleep $TIME
         else
             log_line_count=$(wc -l < "$log_file")
@@ -51,19 +60,23 @@ while true; do
         fi
     done
 
-while true; do  
-    if ping -c 1 182.254.116.116 >/dev/null; then  
-        break  
-    else  
-        echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"  
+    while true; do
+        if ping -c 1 223.5.5.5 >/dev/null; then
+            break
+        else
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"
+            
+            portal $USER_ACCOUNT $USER_PASSWORD $WLAN_USER_IP
+            sleep 3
 
-        portal "$USER_ACCOUNT" "$USER_PASSWORD" "$WLAN_USER_IP"  
-        sleep 3  
+            if ping -c 1 223.5.5.5 >/dev/null; then
+                
+                echo "认证成功！！" >> "$log_file"
+            else
+                echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证失败，重试..." >> "$log_file"
+ 
+            fi
+        fi
+    done
+done
 
-        if ping -c 1 182.254.116.116 >/dev/null; then  
-            echo "认证成功！！" >> "$log_file"  
-        else  
-            echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证失败，重试..." >> "$log_file"  
-        fi  
-    fi  
-done  
