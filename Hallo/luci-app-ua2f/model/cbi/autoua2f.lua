@@ -28,11 +28,6 @@ o4:value("1", "启用")
 o4:value("0", "禁用")
 o4.default = "1"
 
-o5 = e:option(ListValue, "handle_mmtls", translate("处理内网流量"), translate("修改内网的数据包"))
-o5:value("1", "启用")
-o5:value("0", "禁用")
-o5.default = "1"
-
 o6 = e:option(Value, "Custom_UA", translate("修改UA"), translate("自定义UA设置"))
 o6.default = "Mozilla/5.0 (Window NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/555.66"
 
