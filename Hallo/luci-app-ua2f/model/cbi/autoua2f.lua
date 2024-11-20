@@ -1,9 +1,8 @@
-m = Map("autoua2f", translate("防检测配置"))
+m = Map("autoua2f", translate("防检测"))
 
-m:section(SimpleSection).template = "ua2f/ua2f"
 m:section(SimpleSection).template = "ua2f/ua2f_A"
 
-e = m:section(TypedSection, "autoua2f", translate("UA检测"))
+e = m:section(TypedSection, "autoua2f", translate("防检测"))
 e.addremove = false
 e.anonymous = true
 
