@@ -3,31 +3,8 @@
 USER_ACCOUNT="$(uci get autoweblogin.config.user_account)"
 USER_PASSWORD="$(uci get autoweblogin.config.user_password)"
 TIME="$(uci get autoweblogin.config.time)"
-MODE="$(uci get autoweblogin.config.mode)"
 WLAN_USER_IP="$(ip addr show eth1 | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1)"
 response_file="/tmp/response.txt"
-
-set_url() {  
-    TIMESTAMP=$(date +%s%3N)  
-    case "$MODE" in  
-        "0")  
-            url="nothing"  
-            ;;  
-        "SGXY")  
-            url="http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=1&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0"  
-            ;;  
-        "SYKJ")  
-            url="http://172.16.13.10:6060/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE&wlanacIp=172.16.13.11&ssid=&vlan=24012633&mac=a1%3Ab2%3Ac3%3Ad4%3Ae5%3Af6&version=0&portalpageid=2&validateCode=&timestamp=$TIMESTAMP&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2"  
-            ;;  
-        "3")  
-            url="xxx"  
-            ;;  
-        *)  
-            echo "模式: $MODE" >> "$log_file"  
-            return 1  
-            ;;  
-    esac  
-}  
 
 portal() {
     rm "$response_file"
@@ -35,7 +12,7 @@ portal() {
     echo "用户名：$1" >> "$log_file"
     echo "密码：$2" >> "$log_file"
     echo "IP地址：$3" >> "$log_file"
-	curl "$url" \
+	curl "http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=c0%3A18%3A50%3Af9%3Ac1%3Ac5&version=0&portalpageid=2&timestamp=1730174830854&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0" \
 	  -o "$response_file"
     response=$(cat "$response_file")
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] 服务器返回：$response" >> "$log_file"
