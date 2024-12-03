@@ -1,25 +1,72 @@
 #!/bin/sh
 
-USER_ACCOUNT="$(uci get autoweblogin.config.user_account)"
-USER_PASSWORD="$(uci get autoweblogin.config.user_password)"
+MODE="$(uci get autoweblogin.config.mode)"
+USERID="$(uci get autoweblogin.config.user_account)"
+PASSWD="$(uci get autoweblogin.config.user_password)"
 TIME="$(uci get autoweblogin.config.time)"
-WLAN_USER_IP="$(ifconfig eth1 | grep 'inet addr:' | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)"
-MAC="$(ifconfig eth1 | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}')"
+WLANIP="$(ifconfig eth1 | grep 'inet addr:' | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)"
+MAC="$(ifconfig eth1 | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}')"   
 response_file="/tmp/response.txt"
 
-portal() {
+MODE1() {
     rm "$response_file"
-    echo "请求参数：" >> "$log_file"
-    echo "用户名：$1" >> "$log_file"
-    echo "密码：$2" >> "$log_file"
-    echo "IP地址：$3" >> "$log_file"
-    echo "MAC地址：$4" >> "$log_file"
-	curl "http://172.16.13.10:6060/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE&wlanacIp=172.16.13.11&ssid=&vlan=24012633&mac=$4&version=0&portalpageid=2&validateCode=&timestamp=1729925521855&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2" \
+    echo "模式：$MODE" >> "$log_file"
+    echo "用户名：$USERID" >> "$log_file"
+    echo "密码：$PASSWD" >> "$log_file"
+    echo "IP地址：$WLANIP" >> "$log_file"
+    echo "MAC地址：$MAC" >> "$log_file"
+
+    Seconds=$(date -u +%s)
+    Nanoseconds=$(date -u +%N)
+    Milliseconds=$((Seconds * 1000 + Nanoseconds / 1000000))
+
+	curl "http://172.16.253.121/quickauth.do?userid=$USERID&passwd=$PASSWD&wlanuserip=$WLANIP&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=$MAC&version=0&portalpageid=2&timestamp=$Milliseconds&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0" \
 	  -o "$response_file"
     response=$(cat "$response_file")
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] 服务器返回：$response" >> "$log_file"
 
 }
+
+MODE2() {
+    rm "$response_file"
+    echo "请求参数：" >> "$log_file"
+    echo "用户名：$USERID" >> "$log_file"
+    echo "密码：$PASSWD" >> "$log_file"
+    echo "IP地址：$WLANIP" >> "$log_file"
+    echo "MAC地址：$MAC" >> "$log_file"
+
+    Seconds=$(date -u +%s)
+    Nanoseconds=$(date -u +%N)
+    Milliseconds=$((Seconds * 1000 + Nanoseconds / 1000000))
+    
+	curl "http://172.16.13.10:6060/quickauth.do?userid=$USERID&passwd=$PASSWD&wlanuserip=$WLANIP&wlanacname=NFV-BASE&wlanacIp=172.16.13.11&ssid=&vlan=24012633&mac=$MAC&version=0&portalpageid=2&validateCode=&timestamp=$Milliseconds&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2" \
+	  -o "$response_file"
+    response=$(cat "$response_file")
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] 服务器返回：$response" >> "$log_file"
+
+}
+
+MODE3() {
+    rm "$response_file"
+    echo "请求参数：" >> "$log_file"
+    echo "用户名：$USERID" >> "$log_file"
+    echo "密码：$PASSWD" >> "$log_file"
+    echo "IP地址：$WLANIP" >> "$log_file"
+    echo "MAC地址：$MAC" >> "$log_file"
+    
+    Seconds=$(date -u +%s)
+    Nanoseconds=$(date -u +%N)
+    Milliseconds=$((Seconds * 1000 + Nanoseconds / 1000000))
+
+	curl "xxxxx" \
+	  -o "$response_file"
+    response=$(cat "$response_file")
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] 服务器返回：$response" >> "$log_file"
+
+}
+
+
+
 
 log_file="/tmp/log/autoweblogin.log"
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] 开始运行" >> "$log_file"
@@ -44,8 +91,15 @@ while true; do
             break
         else
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"
+
+            if [ "$MODE" = "MODE1" ]; then
+                MODE1
+            elif [ "$MODE" = "MODE2" ]; then
+                MODE2
+            elif [ "$MODE" = "MODE3" ]; then
+                MODE3
+            fi
             
-            portal $USER_ACCOUNT $USER_PASSWORD $WLAN_USER_IP $MAC
             sleep 3
 
             if ping -c 1 223.5.5.5 >/dev/null; then
@@ -58,4 +112,6 @@ while true; do
         fi
     done
 done
+
+
 
