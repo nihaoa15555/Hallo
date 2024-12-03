@@ -10,13 +10,8 @@ response_file="/tmp/response.txt"
 
 MODE1() {
     rm "$response_file"
-    echo "请求参数：" >> "$log_file"
-    echo "模式：$MODE" >> "$log_file"
-    echo "用户名：$USERID" >> "$log_file"
-    echo "密码：$PASSWD" >> "$log_file"
-    echo "IP地址：$WLANIP" >> "$log_file"
-    echo "MAC地址：$MAC" >> "$log_file"
-
+    echo "请求参数——账号：$USERID——密码：$PASSWD——IP地址：$WLANIP——MAC地址：$MAC" >> "$log_file"
+    
     Seconds=$(date -u +%s)
     Nanoseconds=$(date -u +%N)
     Milliseconds=$((Seconds * 1000 + Nanoseconds / 1000000))
@@ -30,12 +25,7 @@ MODE1() {
 
 MODE2() {
     rm "$response_file"
-    echo "请求参数：" >> "$log_file"
-    echo "模式：$MODE" >> "$log_file"
-    echo "用户名：$USERID" >> "$log_file"
-    echo "密码：$PASSWD" >> "$log_file"
-    echo "IP地址：$WLANIP" >> "$log_file"
-    echo "MAC地址：$MAC" >> "$log_file"
+    echo "请求参数——账号：$USERID——密码：$PASSWD——IP地址：$WLANIP——MAC地址：$MAC" >> "$log_file"
 
     Seconds=$(date -u +%s)
     Nanoseconds=$(date -u +%N)
@@ -50,13 +40,8 @@ MODE2() {
 
 MODE3() {
     rm "$response_file"
-    echo "请求参数：" >> "$log_file"
-    echo "模式：$MODE" >> "$log_file"
-    echo "用户名：$USERID" >> "$log_file"
-    echo "密码：$PASSWD" >> "$log_file"
-    echo "IP地址：$WLANIP" >> "$log_file"
-    echo "MAC地址：$MAC" >> "$log_file"
-    
+    echo "请求参数——账号：$USERID——密码：$PASSWD——IP地址：$WLANIP——MAC地址：$MAC" >> "$log_file"
+
     Seconds=$(date -u +%s)
     Nanoseconds=$(date -u +%N)
     Milliseconds=$((Seconds * 1000 + Nanoseconds / 1000000))
