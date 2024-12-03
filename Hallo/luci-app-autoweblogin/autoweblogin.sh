@@ -10,6 +10,7 @@ response_file="/tmp/response.txt"
 
 MODE1() {
     rm "$response_file"
+    echo "请求参数：" >> "$log_file"
     echo "模式：$MODE" >> "$log_file"
     echo "用户名：$USERID" >> "$log_file"
     echo "密码：$PASSWD" >> "$log_file"
@@ -30,6 +31,7 @@ MODE1() {
 MODE2() {
     rm "$response_file"
     echo "请求参数：" >> "$log_file"
+    echo "模式：$MODE" >> "$log_file"
     echo "用户名：$USERID" >> "$log_file"
     echo "密码：$PASSWD" >> "$log_file"
     echo "IP地址：$WLANIP" >> "$log_file"
@@ -49,6 +51,7 @@ MODE2() {
 MODE3() {
     rm "$response_file"
     echo "请求参数：" >> "$log_file"
+    echo "模式：$MODE" >> "$log_file"
     echo "用户名：$USERID" >> "$log_file"
     echo "密码：$PASSWD" >> "$log_file"
     echo "IP地址：$WLANIP" >> "$log_file"
@@ -92,13 +95,17 @@ while true; do
         else
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"
 
-            if [ "$MODE" = "MODE1" ]; then
-                MODE1
-            elif [ "$MODE" = "MODE2" ]; then
-                MODE2
-            elif [ "$MODE" = "MODE3" ]; then
-                MODE3
-            fi
+            case "$MODE" in
+                MODE1)
+                    MODE1
+                    ;;
+                MODE2)
+                    MODE2
+                    ;;
+                MODE3)
+                    MODE3
+                    ;;
+            esac
             
             sleep 3
 
@@ -112,6 +119,3 @@ while true; do
         fi
     done
 done
-
-
-
