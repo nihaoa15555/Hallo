@@ -19,7 +19,7 @@ o2.default = "1"
 o3 = e:option(ListValue, "disable_connmark", translate("禁用 Conntrack 标记"), translate("这会降低性能，但是有助于和其他修改 Connmark 的软件共存"))
 o3:value("1", "启用")
 o3:value("0", "禁用")
-o3.default = "1"
+o3.default = "0"
 
 o4 = e:option(Value, "Custom_UA", translate("修改UA"), translate("自定义UA"))
 o4.default = "Mozilla/5.0 (Window NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/555.66"
