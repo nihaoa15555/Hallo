@@ -65,7 +65,12 @@ while true; do
         else
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"
 
-            portal$MODE
+              case $MODE in
+                  1) portal1 ;;
+                  2) portal2 ;;
+                  3) portal3 ;;
+              esac
+
             sleep 3
 
             if ping -c 1 223.5.5.5 >/dev/null; then
@@ -78,3 +83,4 @@ while true; do
         fi
     done
 done
+
