@@ -1,54 +1,35 @@
-#!/bin/sh  
+#!/bin/sh
 
-BOOT_FLAG="/etc/auth.lock"  
-AUTH_FILE="/etc/auth.info"  
-SECRET_KEY_FILE="/etc/secrets/auth.key"  
-INTERFACE="eth0"  # 可以设置为所需的接口名称  
+BOOT_FLAG="/etc/auth.lock"
+AUTH_FILE="/etc/auth.info"
 
-boot() {  
-    [ -f "$BOOT_FLAG" ] && exit 0  
+boot() {
+    [ -f $BOOT_FLAG ] && exit 0
 
-    # 获取 MAC 地址（示例使用 eth0）  
-    MAC=$(cat /sys/class/net/$INTERFACE/address 2>/dev/null | tr -d ':')  
-    
-    if [ -z "$MAC" ]; then  
-        echo "错误: 无法获取 MAC 地址，请检查网络接口名称 $INTERFACE"  
-        exit 1  
-    fi  
+    # 获取 MAC 地址（示例使用 eth0）
+    MAC=$(cat /sys/class/net/eth0/address | tr -d ':')
 
-    # 生成6位机器码（SHA256截取）  
-    MACHINE_CODE=$(echo -n "$MAC" | openssl dgst -sha256 | cut -d ' ' -f2 | cut -c 1-6 | tr 'a-f' 'A-F')  
+    # 生成6位机器码（SHA256截取）
+    MACHINE_CODE=$(echo -n "$MAC" | openssl dgst -sha256 | cut -d ' ' -f2 | cut -c 1-6 | tr 'a-f' 'A-F')
 
-    # 生成或读取 SECRET_KEY  
-    if [ -f "$SECRET_KEY_FILE" ]; then  
-        SECRET_KEY=$(cat "$SECRET_KEY_FILE")  
-        echo "使用现有的密钥。"  
-    else  
-        # 首次启动时生成并保存密钥  
-        SECRET_KEY=$(openssl rand -hex 32)  
-        mkdir -p /etc/secrets  
-        echo "$SECRET_KEY" > "$SECRET_KEY_FILE"  
-        chmod 600 "$SECRET_KEY_FILE"  
-        echo "生成新密钥并保存。"  
-    fi  
+    # 生成授权码（前5字母+后5数字）
+    SECRET_KEY="k+^7r9x4hfn4+c^mn81i&2eblm%s3ko#)asy#zx4a9pptd-5_7"  # 编译时替换为动态密钥
+    HASH_PART=$(echo -n "$MACHINE_CODE" | openssl dgst -hmac "$SECRET_KEY" -sha1 | cut -d ' ' -f2 | tr -d '\n')
+    NUM_PART=$(echo -n "$MACHINE_CODE" | cksum | cut -d ' ' -f1 | tail -c 5)
 
-    # 生成授权码（前5字母+后5数字）  
-    HASH_PART=$(echo -n "$MACHINE_CODE" | openssl dgst -hmac "$SECRET_KEY" -sha1 | cut -d ' ' -f2 | tr -d '\n')  
-    NUM_PART=$(echo -n "$MACHINE_CODE" | cksum | cut -d ' ' -f1 | tail -c 5)  
+    LETTERS=$(echo "$HASH_PART" | tr -cd 'A-F' | cut -c 1-5 | sed 's/\(.\)/\1 /g')
+    LETTERS=$(for c in $LETTERS; do printf "\x$(printf "%x" $((0x$c + 65))"; done | cut -c 1-5)
+    NUMBERS=$(echo "$NUM_PART" | tail -c 5)
 
-    LETTERS=$(echo "$HASH_PART" | tr -cd 'A-F' | cut -c 1-5 | sed 's/\(.\)/\1 /g')  
-    LETTERS=$(for c in $LETTERS; do printf "\x$(printf "%x" $((0x$c + 65))); done | cut -c 1-5)  
-    NUMBERS=$(echo "$NUM_PART" | tail -c 5)  
+    AUTH_CODE="${LETTERS}${NUMBERS}"
 
-    AUTH_CODE="${LETTERS}${NUMBERS}"  
+    # 保存信息
+    echo "MACHINE_CODE=$MACHINE_CODE" > $AUTH_FILE
+    echo "AUTH_CODE=$AUTH_CODE" >> $AUTH_FILE
+    chmod 600 $AUTH_FILE
 
-    # 保存信息  
-    echo "MACHINE_CODE=$MACHINE_CODE" > "$AUTH_FILE"  
-    echo "AUTH_CODE=$AUTH_CODE" >> "$AUTH_FILE"  
-    chmod 600 "$AUTH_FILE"  
-
-    # 标记已初始化  
-    touch "$BOOT_FLAG"  
-}  
+    # 标记已初始化
+    touch $BOOT_FLAG
+}
 
 boot
