@@ -4,32 +4,30 @@ BOOT_FLAG="/etc/auth.lock"
 AUTH_FILE="/etc/auth.info"
 
 boot() {
-    [ -f $BOOT_FLAG ] && exit 0
+    [ -f "$BOOT_FLAG" ] && exit 0
 
-    # 获取 MAC 地址（示例使用 eth0）
-    MAC=$(cat /sys/class/net/eth0/address | tr -d ':')
+    # 获取MAC地址并去除冒号
+    MAC="$(ifconfig eth1 | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}' | tr -d ':')"
 
-    # 生成6位机器码（SHA256截取）
-    MACHINE_CODE=$(echo -n "$MAC" | openssl dgst -sha256 | cut -d ' ' -f2 | cut -c 1-6 | tr 'a-f' 'A-F')
+    # 生成6位机器码（取MAC前6字符）
+    MAC_CODE=$(echo -n "$MAC" | cut -c 2-7 | tr 'a-f' 'A-F')
+    SSS="S072"
+    BBB="3000"
+    MACHINE_CODE="${SSS}${MAC_CODE}${BBB}"
+    # 生成授权码（HMAC-SHA1哈希截取）
+    SECRET_KEY="k+^7r9x4hfn4+c^mn81i&2eblm%s3ko#)asy#zx4a9pptd-5_7"
+    HASH_FULL=$(echo -n "$MACHINE_CODE" | openssl dgst -hmac "$SECRET_KEY" -sha256 | awk '{print $2}')
+    HASH_PART=$(echo -n "$HASH_FULL" | cut -c 1-11 | tr 'a-f' 'A-F')
 
-    # 生成授权码（前5字母+后5数字）
-    SECRET_KEY="k+^7r9x4hfn4+c^mn81i&2eblm%s3ko#)asy#zx4a9pptd-5_7"  # 编译时替换为动态密钥
-    HASH_PART=$(echo -n "$MACHINE_CODE" | openssl dgst -hmac "$SECRET_KEY" -sha1 | cut -d ' ' -f2 | tr -d '\n')
-    NUM_PART=$(echo -n "$MACHINE_CODE" | cksum | cut -d ' ' -f1 | tail -c 5)
-
-    LETTERS=$(echo "$HASH_PART" | tr -cd 'A-F' | cut -c 1-5 | sed 's/\(.\)/\1 /g')
-    LETTERS=$(for c in $LETTERS; do printf "\x$(printf "%x" $((0x$c + 65))"; done | cut -c 1-5)
-    NUMBERS=$(echo "$NUM_PART" | tail -c 5)
-
-    AUTH_CODE="${LETTERS}${NUMBERS}"
+    AUTH_CODE="$HASH_PART"
 
     # 保存信息
-    echo "MACHINE_CODE=$MACHINE_CODE" > $AUTH_FILE
-    echo "AUTH_CODE=$AUTH_CODE" >> $AUTH_FILE
-    chmod 600 $AUTH_FILE
+    echo "MACHINE_CODE=$MACHINE_CODE" > "$AUTH_FILE"
+    echo "AUTH_CODE=$AUTH_CODE" >> "$AUTH_FILE"
+    chmod 600 "$AUTH_FILE"
 
     # 标记已初始化
-    touch $BOOT_FLAG
+    touch "$BOOT_FLAG"
 }
 
 boot
