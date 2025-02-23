@@ -17,9 +17,8 @@ boot() {
     # 生成授权码（HMAC-SHA1哈希截取）
     SECRET_KEY="k+^7r9x4hfn4+c^mn81i&2eblm%s3ko#)asy#zx4a9pptd-5_7"
     HASH_FULL=$(echo -n "$MACHINE_CODE" | openssl dgst -hmac "$SECRET_KEY" -sha256 | awk '{print $2}')
-    HASH_PART=$(echo -n "$HASH_FULL" | cut -c 1-11 | tr 'a-f' 'A-F')
 
-    AUTH_CODE="$HASH_PART"
+    AUTH_CODE="$HASH_FULL"
 
     # 保存信息
     echo "MACHINE_CODE=$MACHINE_CODE" > "$AUTH_FILE"
