@@ -32,7 +32,7 @@ o5:value("1", "启用")
 o5:value("0", "禁用")
 o5.default = "0"
 
-o6 = e:option(ListValue, "disable_connmark", translate("禁用 Conntrack 标记"), translate("禁用 Conntrack 标记，这会降低性能，但是有助于和其他修改 Connmark 的软件共存"))
+o6 = e:option(ListValue, "disable_connmark", translate("禁用 Conntrack 标记"), translate("这会降低性能，但是有助于和其他修改 Connmark 的软件共存"))
 o6:value("1", "启用")
 o6:value("0", "禁用")
 o6.default = "0"
