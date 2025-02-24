@@ -5,6 +5,9 @@ USER_PASSWORD="$(uci get autoweblogin.config.user_password)"
 TIME="$(uci get autoweblogin.config.time)"
 WLAN_USER_IP="$(ifconfig eth1 | grep 'inet addr:' | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)"
 MAC="$(ifconfig eth1 | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}')"
+Seconds=$(date -u +%s)
+Nanoseconds=$(date -u +%N)
+Milliseconds=$((Seconds * 1000 + Nanoseconds / 1000000))
 response_file="/tmp/response.txt"
 
 portal() {
@@ -45,7 +48,7 @@ while true; do
         else
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"
             
-            portal $USER_ACCOUNT $USER_PASSWORD $WLAN_USER_IP $MAC
+            portal $USER_ACCOUNT $USER_PASSWORD $WLAN_USER_IP $MAC $Milliseconds
             sleep 3
 
             if ping -c 1 223.5.5.5 >/dev/null; then
