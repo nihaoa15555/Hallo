@@ -5,6 +5,6 @@ function index()
     entry({"admin", "diy", "htm"}, cbi("mlgb"), _("路由状态"), 1)
     entry({"admin", "diy", "WiFi"}, cbi("WiFi"), "WIFI设置", 2)
     entry({"admin", "diy", "lanipc"}, cbi("lanip"), _("修改IP"), 5)
-    entry({"admin", "diy", "autoreboot"}, cbi("autoreboot"), _("定时重启"), 100)
+    --entry({"admin", "diy", "autoreboot"}, cbi("autoreboot"), _("定时重启"), 100)
 end
 
