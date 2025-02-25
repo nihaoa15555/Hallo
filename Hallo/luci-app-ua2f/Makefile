@@ -41,7 +41,6 @@ define Package/luci-app-ua2f/install
 	$(INSTALL_DATA) ./view/ua2f/* $(1)/usr/lib/lua/luci/view/ua2f/
 	$(INSTALL_CONF) ./etc/config/autoua2f $(1)/etc/config/autoua2f
 	$(INSTALL_BIN) ./etc/init.d/autoua2f $(1)/etc/init.d/autoua2f
-	$(INSTALL_BIN) ./etc/init.d/autoreboot $(1)/etc/init.d/autoreboot
 endef
 
 $(eval $(call BuildPackage,luci-app-ua2f))
