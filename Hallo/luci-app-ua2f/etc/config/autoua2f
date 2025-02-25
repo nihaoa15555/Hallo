@@ -1,8 +1,11 @@
 
 config autoua2f 'config'
 	option handle_fw '1'
-	option handle_intranet '1'
-	option enabled '0'
+	option isable_connmark '0'
+	option disable_connmark '0'
+	option Custom_UA 'Mozilla/5.0 (Window NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/555.66'
+	option handle_intranet '0'
 	option handle_tls '0'
 	option handle_mmtls '0'
-	option disable_connmark '0'
+	option enabled '1'
+
