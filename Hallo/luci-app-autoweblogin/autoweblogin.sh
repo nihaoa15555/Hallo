@@ -2,7 +2,6 @@
 
 USER_ACCOUNT="$(uci get autoweblogin.config.user_account)"
 USER_PASSWORD="$(uci get autoweblogin.config.user_password)"
-TIME="$(uci get autoweblogin.config.time)"
 WLAN_USER_IP="$(ifconfig eth1 | grep 'inet addr:' | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)"
 MAC="$(ifconfig eth1 | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}')"
 Seconds=$(date -u +%s)
@@ -30,7 +29,7 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')] 开始运行" >> "$log_file"
 while true; do
     while true; do
         if ping -c 1 223.5.5.5 >/dev/null; then
-            sleep $TIME
+            sleep 4
         else
             log_line_count=$(wc -l < "$log_file")
             if [ "$log_line_count" -gt 200 ]; then
