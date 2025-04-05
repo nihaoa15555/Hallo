@@ -7,7 +7,7 @@ e = m:section(TypedSection, "BBBZZB", translate(""))
 e.addremove = false
 e.anonymous = true
 
-o1 = e:option(ListValue, "enabled", translate("启用/开机自启"))
+o1 = e:option(ListValue, "enabled", translate("启用（每5秒检测一次）"))
 o1:value("1", "启用")
 o1:value("0", "禁用")
 o1.default = "0"
@@ -16,9 +16,6 @@ o3 = e:option(Value, "user_account", translate("账号"))
 
 o4 = e:option(Value, "user_password", translate("密码"))
 o4.password = true
-
-o5 = e:option(Value, "time", translate("网络检测间隔"), translate("以秒为单位"))
-
 
 local apply = luci.http.formvalue("cbi.apply")
 if apply then
