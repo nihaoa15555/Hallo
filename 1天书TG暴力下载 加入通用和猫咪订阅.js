@@ -2,18 +2,21 @@
 import { connect } from 'cloudflare:sockets';
 
 // 订阅配置参数
-let 哎呀呀这是我的ID啊 = "123456"; // 订阅路径
-let 哎呀呀这是我的VL密钥 = "3ad36a60-f126-4b5d-a252-c6455c218ebc"; // UUID
+let 哎呀呀这是我的ID啊 = "723992"; // 订阅路径
+let 哎呀呀这是我的VL密钥 = "3ad36a60-f126-4b5d-a252-c0723c218ebc"; // UUID
 let 我的优选 = [
-  'ns5.cloudflare.com:443#美国通用丨3057',
+  '47.76.218.163:443#香港1',
+  '47.242.218.87:443#香港2',
+  '72.13.122.137:443#美国1',
+  '184.169.181.217:443#美国2'
 ];
 let 我的优选TXT = [
   // 'https://raw.githubusercontent.com/shulng/shulng/refs/heads/main/ip.txt', // 测试地址
   // 'https://raw.githubusercontent.com/cmliu/CFcdnVmess2sub/main/addressesapi.txt', // 测试地址
 ];
 let 我的NAT64 = "2602:fc59:11:64::";
-let 反代IP = 'ProxyIP.US.CMLiussss.net';
-let 我的节点名字 = '天书TG暴力下载';
+let 反代IP = '47.76.218.163';
+let 我的节点名字 = '我爱祖国';
 let 通 = 'vl', 用 = 'ess', 猫 = 'cla', 咪 = 'sh', 符号 = '://';
 let DNS缓存 = new Map(); // DNS解析结果缓存
 
