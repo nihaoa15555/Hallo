@@ -7,9 +7,9 @@ enabled="$(uci get autoua2f.config.enabled)"
 start() {
     uci set ua2f.enabled.enabled=$enabled
     uci set ua2f.firewall.handle_fw=$enabled
-    uci set ua2f.firewall.handle_tls=$enabled
+    uci set ua2f.firewall.handle_tls=0
     uci set ua2f.firewall.handle_intranet=$enabled
-    uci set ua2f.firewall.handle_mmtls=$enabled
+    uci set ua2f.firewall.handle_mmtls=0
     uci set ua2f.main.custom_ua="$(uci get autoua2f.config.Custom_UA)"
     uci commit ua2f
     if [ "$enabled" = "1" ]; then
