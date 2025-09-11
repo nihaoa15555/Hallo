@@ -1,37 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>HTTP User Agent</title>
+    <title>HTTP User Agent 对比结果</title>
     <style>
         .content {
             text-align: center;
-            color: #7351e6;
-            font-size: 17px;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 20px auto;
+            max-width: 450px;
+            border-radius: 8px;
             background-color: #ffffff;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            min-height: 22px; /* 确保高度一致 */
+        }
+        .success {
+            color: #28a745;
+            background-color: #f0fff4;
+            border: 1px solid #28a745;
+        }
+        .failure {
+            color: #dc3545;
+            background-color: #fff5f5;
+            border: 1px solid #dc3545;
+        }
+        .network-error {
+            color: #856404;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+        }
+        .server-busy {
+            color: #495057; /* 灰色文字 */
+            background-color: #e9ecef; /* 浅灰色背景 */
+            border: 1px solid #ced4da; /* 灰色边框 */
         }
     </style>
 </head>
 <body>
     <div class="content">
+        <div class="result" id="comparisonResult">加载中...</div>
+
         <script>
-            function updateServerUserAgent() {
-                fetch('http://httpbin.org/user-agent')
-                    .then(response => response.json())
-                    .then(data => {
-                        const serverUserAgent = JSON.stringify(data);
-                        const formattedServerUserAgent = serverUserAgent.replace(/[{""}]/g, '').replace("user-agent:", '');
-                        const browserUserAgent = "浏览器真实的UA：" + navigator.userAgent;
-                        const finalUserAgent = "服务器获取的UA：" + formattedServerUserAgent.trim();
-                        document.querySelector('.content').innerText = browserUserAgent + "\n" + finalUserAgent;
-                    })
-                    .catch(error => console.error(error));
+            // ping检测函数 - 使用图片加载方式模拟ping
+            function pingHost(host) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    const startTime = Date.now();
+                    
+                    // 设置超时时间为2秒
+                    img.timeout = 2000;
+                    
+                    img.onload = img.onerror = function() {
+                        const success = Date.now() - startTime < img.timeout;
+                        resolve(success);
+                    };
+                    
+                    // 使用随机参数避免缓存
+                    img.src = `http://${host}/?rand=${Math.random()}`;
+                    
+                    // 超时处理
+                    setTimeout(() => {
+                        resolve(false);
+                    }, img.timeout);
+                });
             }
-            updateServerUserAgent()  
-            setInterval(updateServerUserAgent, 3000);
+
+            async function updateAndCompareUserAgents() {
+                // 先ping 223.5.5.5
+                const isNetworkAlive = await pingHost('223.5.5.5');
+                const resultElement = document.getElementById('comparisonResult');
+                
+                // 获取浏览器UA
+                const browserUserAgent = navigator.userAgent;
+                
+                try {
+                    // 获取服务器UA
+                    const response = await fetch('http://httpbin.org/user-agent');
+                    
+                    if (!response.ok) {
+                        // 网络正常但服务器响应不正常
+                        if (isNetworkAlive) {
+                            resultElement.textContent = "服务器繁忙，请稍后再试";
+                            resultElement.className = "result server-busy";
+                        } else {
+                            resultElement.textContent = "网络连接问题，请联网后再试";
+                            resultElement.className = "result network-error";
+                        }
+                        return;
+                    }
+                    
+                    const data = await response.json();
+                    const serverUserAgent = data['user-agent'];
+                    
+                    // 对比两个UA并更新结果
+                    if (browserUserAgent === serverUserAgent) {
+                        resultElement.textContent = "运行失败，请关闭代理软件后再重试";
+                        resultElement.className = "result failure";
+                    } else {
+                        resultElement.textContent = "开启成功";
+                        resultElement.className = "result success";
+                    }
+                } catch (error) {
+                    console.error('获取服务器UA失败:', error);
+                    
+                    // 根据网络状态显示不同错误
+                    if (isNetworkAlive) {
+                        // 网络通但获取UA失败 - 服务器繁忙
+                        resultElement.textContent = "服务器繁忙，请稍后再试";
+                        resultElement.className = "result server-busy";
+                    } else {
+                        // 网络不通
+                        resultElement.textContent = "网络连接问题，请联网后再试";
+                        resultElement.className = "result network-error";
+                    }
+                }
+            }
+            
+            // 初始执行一次
+            updateAndCompareUserAgents();
+            // 每3秒更新一次
+            setInterval(updateAndCompareUserAgents, 3000);
         </script>
     </div>
 </body>
