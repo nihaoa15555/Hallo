@@ -1,6 +1,6 @@
-m = Map("wireless", "Wi-Fi设置", "配置Wi-Fi设置")
+m = Map("wireless", "Wi-Fi设置" )
 
-s = m:section(TypedSection, "wifi-iface", "修改为不同名称即可分为两个wifi信号")
+s = m:section(TypedSection, "wifi-iface", "修改为不同名称即可分为两个Wi-Fi信号")
 s.anonymous = true
 
 o = s:option(Value, "ssid", "Wi-Fi名称")
@@ -30,4 +30,5 @@ o.validate = function(self, value)
 end
 
 return m
+
 
