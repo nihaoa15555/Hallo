@@ -13,7 +13,7 @@
 </tr>
 <tr>
 <th>编译时间</th>
-<td><%=luci.sys.exec("uci get summary.summary.ttt")%></td>
+<td>2025-9-10</td>
 </tr>
 <tr>
 <th>内核版本号</th>
@@ -27,7 +27,7 @@
 <th>外网接口状态</th>
 <td>
 <% if luci.sys.exec("ip link show dev eth1 | grep 'state UP'") ~= "" then %>
-    <span style="color: rgb(13, 221, 13);">物理wan口已连接：1000 Mbps</span>
+    <span style="color: rgb(13, 221, 13);">物理wan口已连接</span>
     <tr>
     <th>上级IP</th>
     <td><%=luci.sys.exec("ip route | awk '/default/ {print $3}'")%></td>
