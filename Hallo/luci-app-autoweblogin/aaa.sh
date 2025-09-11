@@ -125,7 +125,7 @@ while true; do
         read -r USER_ACCOUNT USER_PASSWORD WLAN_USER_IP MAC Milliseconds <<< $(get_real_time_params)
         
         # 参数校验：空值时跳过本次认证，避免无效请求
-        if [ -z "$USER_ACCOUNT" ] || [ -z "$USER_PASSWORD" ] || [ -z "$WLAN_USER_IP" ] || [ -z "$MAC" ]; then
+        if [ -z "$USER_ACCOUNT" ] || [ -z "$USER_PASSWORD" ]; then
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证参数缺失（账号/密码），跳过本次认证" >> "$log_file"
             sleep "$RECHECK_INTERVAL"
             continue
