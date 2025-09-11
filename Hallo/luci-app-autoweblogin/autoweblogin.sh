@@ -12,8 +12,8 @@ response_file="/tmp/response.txt"
 portal() {
     rm "$response_file"
     echo "请求参数：" >> "$log_file"
-    echo "账号：$1" >> "$log_file"
-    echo "密码：$2" >> "$log_file"
+    echo "账号：${1:0:6}***" >> "$log_file"
+    echo "密码：${2:0:6}***" >> "$log_file"
 	curl "http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=$4&version=0&portalpageid=2&timestamp=$5&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0" \
 	  -o "$response_file"
     response=$(cat "$response_file")
@@ -27,7 +27,7 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')] 开始运行" >> "$log_file"
 while true; do
     while true; do
         if ping -c 1 223.5.5.5 >/dev/null; then
-            sleep 4
+            sleep 3
         else
             log_line_count=$(wc -l < "$log_file")
             if [ "$log_line_count" -gt 200 ]; then
