@@ -1,4 +1,4 @@
-m = Map("network", translate("修改Lan口IP"), translate("当路由器IP与上级路由器IP重复时请修改lan口IP以解决冲突问题"))
+m = Map("network", translate("修改Lan口IP"))
 s = m:section(TypedSection, "interface",translate(""))
 s.anonymous = true
 function s:filter(value)
