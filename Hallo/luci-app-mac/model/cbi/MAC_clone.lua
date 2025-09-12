@@ -10,7 +10,7 @@ e = m:section(TypedSection, "MAC_clone")
 e.addremove = false
 e.anonymous = true
 
-o1 = e:option(ListValue, "enable", translate("启用MAC克隆"))
+o1 = e:option(ListValue, "enable", translate("开启/关闭"))
 o1:value("1", "启用")
 o1:value("0", "禁用")
 o1.default = "0"
