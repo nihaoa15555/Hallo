@@ -1,4 +1,4 @@
-m = Map("network", translate("修改Lan口IP"))
+m = Map("network", translate("修改后台IP"))
 s = m:section(TypedSection, "interface",translate(""))
 s.anonymous = true
 function s:filter(value)
