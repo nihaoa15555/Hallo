@@ -1,5 +1,0 @@
-
-config interface 'summary'
-	option ttt '2025-2-20 00:00:00'
-	option vvv '0'
-
