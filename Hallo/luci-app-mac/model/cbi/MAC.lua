@@ -3,10 +3,10 @@ local sys = require "luci.sys"
 local uci = require "luci.model.uci".cursor()
 local m, e
 
-m = Map("MAC_clone", translate("MAC克隆"))
+m = Map("MAC", translate("MAC克隆"))
 
 
-e = m:section(TypedSection, "MAC_clone")
+e = m:section(TypedSection, "MAC")
 e.addremove = false
 e.anonymous = true
 
@@ -42,8 +42,8 @@ o.default = "a1:b2:c3:d4:e5:f6"
 o.rmempty = false
 
 m.on_commit = function(self)
-    sys.call("/etc/init.d/MAC_clone start")
-    luci.http.redirect(luci.dispatcher.build_url("admin", "school", "MAC_clone"))
+    sys.call("/etc/init.d/MAC start")
+    luci.http.redirect(luci.dispatcher.build_url("admin", "school", "MAC"))
 end
 
 return m
