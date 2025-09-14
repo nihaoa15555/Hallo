@@ -35,10 +35,10 @@ define Package/luci-app-mac/install
 	$(INSTALL_DIR) $(1)/etc/config/
 	$(INSTALL_DIR) $(1)/etc/init.d/
 	
-	$(INSTALL_BIN) ./controller/MAC_clone.lua $(1)/usr/lib/lua/luci/controller/MAC_clone.lua
-	$(INSTALL_BIN) ./model/cbi/MAC_clone.lua $(1)/usr/lib/lua/luci/model/cbi/MAC_clone.lua
-	$(INSTALL_CONF) ./etc/config/MAC_clone $(1)/etc/config/MAC_clone
-	$(INSTALL_BIN) ./etc/init.d/MAC_clone $(1)/etc/init.d/MAC_clone
+	$(INSTALL_BIN) ./controller/MAC.lua $(1)/usr/lib/lua/luci/controller/MAC.lua
+	$(INSTALL_BIN) ./model/cbi/MAC.lua $(1)/usr/lib/lua/luci/model/cbi/MAC.lua
+	$(INSTALL_CONF) ./etc/config/MAC $(1)/etc/config/MAC
+	$(INSTALL_BIN) ./etc/init.d/MAC $(1)/etc/init.d/MAC
 endef
 
 $(eval $(call BuildPackage,luci-app-mac))
