@@ -1,0 +1,4 @@
+config niubi'config'
+	option enabled '0'
+
+
