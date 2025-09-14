@@ -4,19 +4,19 @@ START=99
 STOP=10
 
 get_interface() {
-    uci get MAC_clone.config.interface
+    uci get MAC.config.interface
 }
 
 get_enable() {
-    uci get MAC_clone.config.enable
+    uci get MAC.config.enable
 }
 
 get_random() {
-    uci get MAC_clone.config.random
+    uci get MAC.config.random
 }
 
 get_version() {
-    uci get MAC_clone.config.version
+    uci get MAC.config.version
 }
 
 start() {
