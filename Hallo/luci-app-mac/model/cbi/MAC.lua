@@ -15,7 +15,7 @@ o1:value("1", "启用")
 o1:value("0", "禁用")
 o1.default = "0"
 
-o = e:option(ListValue, "interface", translate("选择接口"), translate("确保选择正确的 有线/无线 接口"))
+o = e:option(ListValue, "interface", translate("选择接口"))
 for t, e in ipairs(i.net.devices()) do
     if e ~= "lo" then
         local mac_address = io.popen("ifconfig " .. e .. " | grep HWaddr | awk '{ print $5 }'")
@@ -36,8 +36,8 @@ function get_login_device_mac()
     return luci.sys.exec(cmd):gsub("\n", ""):upper()
 end
 
-o = e:option(Value, "version", translate("手动修改mac"))
-o.description = translate("当前设备（你的电脑）mac地址：" .. get_login_device_mac())
+o = e:option(Value, "version", translate("修改mac"))
+o.description = translate("当前设备mac地址：" .. get_login_device_mac())
 o.default = "a1:b2:c3:d4:e5:f6"
 o.rmempty = false
 
