@@ -1,7 +1,6 @@
 local i = require "luci.sys"
 
 m = Map("autoweblogin", translate("校园网认证"))
-m:section(SimpleSection).template = "autoweblogin/autoweblogin"
 
 e = m:section(TypedSection, "BBBZZB", translate(""))
 e.addremove = false
@@ -23,4 +22,5 @@ if apply then
 end
 
 return m
+
 
