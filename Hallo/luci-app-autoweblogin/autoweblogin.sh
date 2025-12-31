@@ -11,8 +11,18 @@ USER_ID2="$USER_PASSWORD@139.gd"
 USER_PASSWORD2="${USER_PASSWORD: -6}"
 response_file="/tmp/response.txt"
 
-portal() {
+portal1() {
     rm "$response_file"
+    echo "账号：${1:0:6}***" >> "$log_file"
+    echo "密码：${2:0:6}***" >> "$log_file"
+	curl "http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=$4&version=0&portalpageid=2&timestamp=$5&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0" \
+	  -o "$response_file"
+    response=$(cat "$response_file")
+	message=$(echo "$response" | grep -o '"message":"[^"]*"' | sed -e 's/"message":"//' -e 's/"//')
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] 服务器返回：$message" >> "$log_file"
+}
+
+portal2() {
 	curl -d "wname=$1&wpwd=$2&login=登录" http://172.16.253.114/cgi-bin/wlogin.cgi
 }
 
@@ -26,9 +36,9 @@ while true; do
         else
             log_line_count=$(wc -l < "$log_file")
             if [ "$log_line_count" -gt 200 ]; then
-                echo "[$(date '+%Y-%m-%d %H:%M:%S')] 日志达到上限200行，已覆盖" > "$log_file"
+                echo "[$(date '+%Y-%m-%d %H:%M:%S')] 日志达到上限，已清除" > "$log_file"
             fi
-            echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，进行二次网络监测，避免误测" >> "$log_file"
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，进行二次网络监测" >> "$log_file"
             sleep 3
             break
         fi
@@ -38,17 +48,20 @@ while true; do
         if ping -c 1 223.5.5.5 >/dev/null; then
             break
         else
-            echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证请求..." >> "$log_file"
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证" >> "$log_file"
             
-            portal "$USER_ID2" "$USER_PASSWORD2"
+            # 规范缩进，保持层级清晰
+            portal1 "$USER_ACCOUNT" "$USER_PASSWORD" "$WLAN_USER_IP" "$MAC" "$Milliseconds"
+            if ! ping -c 1 223.5.5.5 >/dev/null; then 
+                portal2 "$USER_ID2" "$USER_PASSWORD2"
+            fi
             sleep 3
 
+            # 认证结果判断：补充时间戳，格式统一
             if ping -c 1 223.5.5.5 >/dev/null; then
-                
-                echo "认证成功！！" >> "$log_file"
+                echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证成功" >> "$log_file"
             else
-                echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证失败，重试..." >> "$log_file"
- 
+                echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证失败，正在重试" >> "$log_file"
             fi
         fi
     done
