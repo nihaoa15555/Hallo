@@ -39,7 +39,7 @@ while true; do
                 echo "[$(date '+%Y-%m-%d %H:%M:%S')] 日志达到上限，已清除" > "$log_file"
             fi
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，进行二次网络监测" >> "$log_file"
-            sleep 3
+            sleep 2
             break
         fi
     done
@@ -54,7 +54,7 @@ while true; do
 				echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，进行第二次认证" >> "$log_file"
                 portal2 "$USER_ID2" "$USER_PASSWORD2"
             fi
-            sleep 3
+            sleep 2
             if ping -c 1 223.5.5.5 >/dev/null; then
                 echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证成功" >> "$log_file"
             else
