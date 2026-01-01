@@ -8,8 +8,8 @@
 <td><%=luci.sys.exec("cat /proc/cpuinfo | grep 'machine' | awk -F':' '{print $2}'")%></td>
 </tr>
 <tr>
-<th>本机序列号</th>  <!-- 恢复标准表头标签，剔除所有无效字符 -->
-<td><%=luci.sys.exec("UUID_FILE=/etc/router_uuid; if [ ! -f $UUID_FILE ]; then # 优先读取MTD分区标识（兼容性极强） MTD_ID=$(cat /sys/class/mtd/mtd0/uuid 2>/dev/null || cat /sys/class/mtd/mtd0/size 2>/dev/null || cat /sys/class/mtd/mtd0/name 2>/dev/null) # 若MTD标识读取失败，自动切换到CPU信息（兜底，支持所有设备） UNIQUE_ID=${MTD_ID:-$(cat /proc/cpuinfo | grep -E 'model name|Serial' | tr -d ' \n:' 2>/dev/null)} # 组合唯一标识和内核随机数生成UUID echo -n \"$UNIQUE_ID-$(cat /proc/cpuinfo | grep 'processor' | wc -l)-$(cat /proc/sys/kernel/random/uuid 2>/dev/null)\" | md5sum | awk '{print $1}' > $UUID_FILE; fi; cat $UUID_FILE 2>/dev/null || echo 'ba0zaw1a03a09b0907c02030an08c56kj01'")%></td>
+<th>本机序列号</th>
+<td>sjnjub3z22w792128BXHfzo0001</td>
 </tr>
 <tr>
 <th>外网接口状态</th>
