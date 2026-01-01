@@ -49,15 +49,12 @@ while true; do
             break
         else
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证" >> "$log_file"
-            
-            # 规范缩进，保持层级清晰
             portal1 "$USER_ACCOUNT" "$USER_PASSWORD" "$WLAN_USER_IP" "$MAC" "$Milliseconds"
             if ! ping -c 1 223.5.5.5 >/dev/null; then 
+				echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，进行第二次认证" >> "$log_file"
                 portal2 "$USER_ID2" "$USER_PASSWORD2"
             fi
             sleep 3
-
-            # 认证结果判断：补充时间戳，格式统一
             if ping -c 1 223.5.5.5 >/dev/null; then
                 echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证成功" >> "$log_file"
             else
