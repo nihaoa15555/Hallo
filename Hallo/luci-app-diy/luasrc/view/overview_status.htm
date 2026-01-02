@@ -15,7 +15,7 @@
 <th>外网接口状态</th>
 <td>
 <% if luci.sys.exec("ip link show dev eth1 | grep 'state UP'") ~= "" then %>
-    <span style="color: rgb(13, 221, 13);">物理wan口已连接</span>
+    <span style="color: rgb(13, 221, 13);">网口已连接</span>
     <tr>
     <th>WAN口拨号协议</th>
     <td><%=luci.sys.exec("uci get network.wan.proto")%></td>
