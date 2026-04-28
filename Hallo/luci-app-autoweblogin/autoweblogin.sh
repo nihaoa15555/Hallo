@@ -40,7 +40,7 @@ while true; do
             if [ "$log_line_count" -gt 200 ]; then
                 echo "[$(date '+%Y-%m-%d %H:%M:%S')] 日志达到上限，已清除" > "$log_file"
             fi
-            echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，进行二次网络监测" >> "$log_file"
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常" >> "$log_file"
             sleep 2
             break
         fi
@@ -53,7 +53,7 @@ while true; do
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证" >> "$log_file"
             portal2 "$USER_ID2" "$USER_PASSWORD2"
             if ! ping -c 1 223.5.5.5 >/dev/null; then 
-				echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，进行第二次认证" >> "$log_file"
+				echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常" >> "$log_file"
                 portal2 "$USER_ID2" "$USER_PASSWORD2"
             fi
             sleep 2
