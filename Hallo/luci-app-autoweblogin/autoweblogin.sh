@@ -23,6 +23,8 @@ portal1() {
 }
 
 portal2() {
+	rm "$response_file"
+    echo "账号：${1:0:6}***" >> "$log_file"
 	curl -d "wname=$1&wpwd=$2&login=登录" http://172.16.253.114/cgi-bin/wlogin.cgi
 }
 
@@ -49,7 +51,7 @@ while true; do
             break
         else
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证" >> "$log_file"
-            portal1 "$USER_ACCOUNT" "$USER_PASSWORD" "$WLAN_USER_IP" "$MAC" "$Milliseconds"
+            portal2 "$USER_ID2" "$USER_PASSWORD2"
             if ! ping -c 1 223.5.5.5 >/dev/null; then 
 				echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，进行第二次认证" >> "$log_file"
                 portal2 "$USER_ID2" "$USER_PASSWORD2"
