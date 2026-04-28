@@ -33,8 +33,8 @@ echo "[$(date '+%Y-%m-%d %H:%M:%S')] 开始运行" >> "$log_file"
 
 while true; do
     while true; do
-        if ping -c 1 223.5.5.5 >/dev/null; then
-            sleep 3
+        if ping -c 1 119.29.29.29 >/dev/null; then
+            sleep 2
         else
             log_line_count=$(wc -l < "$log_file")
             if [ "$log_line_count" -gt 200 ]; then
@@ -52,7 +52,7 @@ while true; do
         else
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证" >> "$log_file"
             portal2 "$USER_ID2" "$USER_PASSWORD2"
-            if ! ping -c 1 223.5.5.5 >/dev/null; then 
+            if ! ping -c 1 119.29.29.29 >/dev/null; then 
 				echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常" >> "$log_file"
                 portal2 "$USER_ID2" "$USER_PASSWORD2"
             fi
