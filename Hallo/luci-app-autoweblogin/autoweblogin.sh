@@ -14,7 +14,6 @@ response_file="/tmp/response.txt"
 portal1() {
     rm "$response_file"
     echo "账号：${1:0:6}***" >> "$log_file"
-    echo "密码：${2:0:6}***" >> "$log_file"
 	curl "http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=$4&version=0&portalpageid=2&timestamp=$5&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0" \
 	  -o "$response_file"
     response=$(cat "$response_file")
@@ -51,12 +50,15 @@ while true; do
             break
         else
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证" >> "$log_file"
-            portal2 "$USER_ID2" "$USER_PASSWORD2"
+            portal1 "$USER_ACCOUNT" "$USER_PASSWORD" "$WLAN_USER_IP" "$MAC" "$Milliseconds"
+			sleep 2
+			
             if ! ping -c 1 119.29.29.29 >/dev/null; then 
 				echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常" >> "$log_file"
                 portal2 "$USER_ID2" "$USER_PASSWORD2"
             fi
             sleep 2
+			
             if ping -c 1 223.5.5.5 >/dev/null; then
                 echo "[$(date '+%Y-%m-%d %H:%M:%S')] 认证成功" >> "$log_file"
             else
