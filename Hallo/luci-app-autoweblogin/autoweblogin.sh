@@ -35,7 +35,7 @@ while true; do
             break
         else
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] 网络异常，发起认证" >> "$log_file"
-            portal1 "$USER_ACCOUNT" "$USER_PASSWORD" "$WLAN_USER_IP" "$MAC" "$Milliseconds"
+            portal2 "$USER_ID2" "$USER_PASSWORD2"
 			sleep 2
 			
             if ! ping -c 1 119.29.29.29 >/dev/null; then 
