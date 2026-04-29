@@ -11,10 +11,8 @@ o1:value("1", "启用")
 o1:value("0", "禁用")
 o1.default = "0"
 
-o3 = e:option(Value, "user_account", translate("账号"))
-
-o4 = e:option(Value, "user_password", translate("密码"))
-o4.password = true
+o3 = e:option(Value, "user_password", translate("密码"))
+o3.password = true
 
 local apply = luci.http.formvalue("cbi.apply")
 if apply then
