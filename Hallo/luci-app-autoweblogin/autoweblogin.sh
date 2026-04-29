@@ -1,25 +1,10 @@
 #!/bin/sh
 
-USER_ACCOUNT="$(uci get autoweblogin.config.user_account)"
 USER_PASSWORD="$(uci get autoweblogin.config.user_password)"
-WLAN_USER_IP="$(ifconfig eth1 | grep 'inet addr:' | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)"
-MAC="$(ifconfig eth1 | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}')"
-Seconds=$(date -u +%s)
-Nanoseconds=$(date -u +%N)
-Milliseconds=$((Seconds * 1000 + Nanoseconds / 1000000))
 USER_ID2="$USER_PASSWORD@139.gd"
 USER_PASSWORD2="${USER_PASSWORD: -6}"
 response_file="/tmp/response.txt"
 
-portal1() {
-    rm "$response_file"
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] 账号：${1:0:6}***" >> "$log_file"
-	curl "http://172.16.253.121/quickauth.do?userid=$1&passwd=$2&wlanuserip=$3&wlanacname=NFV-BASE-SGYD2&wlanacIp=172.16.253.114&ssid=&vlan=1116&mac=$4&version=0&portalpageid=2&timestamp=$5&portaltype=0&hostname=HuaWei&bindCtrlId=&validateType=0&bindOperatorType=2&sendFttrNotice=0" \
-	  -o "$response_file"
-    response=$(cat "$response_file")
-	message=$(echo "$response" | grep -o '"message":"[^"]*"' | sed -e 's/"message":"//' -e 's/"//')
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] 服务器返回：$message" >> "$log_file"
-}
 
 portal2() {
 	rm "$response_file"
