@@ -69,5 +69,9 @@ end
 <th>已连接路由器数量</th>
 <td><%=luci.sys.exec("iw dev | awk '/Interface/ {print $2}' | while read iface; do iw dev $iface station dump | grep 'Station' | wc -l; done | awk '{sum += $1} END {print sum}'")%></td>
 </tr>
+<tr>
+<th>其他</th>
+<td style="color:red;">如有疑问或者其他问题，请联系QQ:1335386055</td>
+</tr>
 </table>
 </div>
